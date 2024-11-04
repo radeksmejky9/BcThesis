@@ -1,60 +1,58 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Unity.Mathematics;
-using Unity.XR.CoreUtils;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.XR.ARFoundation;
 
-public class Movement : MonoBehaviour
+public class ObjectManager : MonoBehaviour
 {
     [SerializeField]
     private Transform assets;
-
     private Transform cam;
-    private GameObject currentCube;
     private Transform model;
+    private GameObject anchor;
+
+    [SerializeField]
+    private GameObject[] objectPrefabs;
+
+    private GameObject currentObject;
+
     void Start()
     {
         model = assets.parent;
         cam = Camera.main.transform;
     }
 
-    public void Move()
+    public void AlignModel()
     {
-        if (currentCube != null && assets.parent != null)
+        if (anchor != null && assets.parent != null)
         {
             assets.parent = model;
-            Destroy(currentCube);
+            Destroy(anchor);
         }
+
+        anchor = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        anchor.GetComponent<Renderer>().enabled = false;
+        anchor.transform.position = cam.position;
+        anchor.transform.parent = model;
+
+        assets.parent = anchor.transform;
+        Quaternion objectTransformRotation = Quaternion.Euler(0, assets.rotation.y, 0);
+        Quaternion anchorY = Quaternion.Euler(0, Camera.main.transform.rotation.eulerAngles.y, 0);
 
         assets.SetPositionAndRotation(new Vector3(
                 cam.position.x + model.position.x,
                 cam.position.y + model.position.y,
                 cam.position.z + model.position.z
                 ), new quaternion(0, 0, 0, 0));
-
-        currentCube = CreateAnchor();
-
-        Quaternion objectTransformRotation = Quaternion.Euler(0, assets.rotation.y, 0);
-
-        float camYRotation = Camera.main.transform.rotation.eulerAngles.y;
-        Quaternion camYRotationOnly = Quaternion.Euler(0, camYRotation, 0);
-        currentCube.transform.rotation = objectTransformRotation * camYRotationOnly;
-        assets.gameObject.SetActive(true);
-
-
+        anchor.transform.rotation = objectTransformRotation * anchorY;
     }
 
-    private GameObject CreateAnchor()
+    public void CreateObject(int objectIndex)
     {
-        var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        cube.GetComponent<Renderer>().enabled = false;
-        cube.transform.position = cam.position;
-        cube.transform.parent = model;
-        assets.parent = cube.transform;
-        return cube;
+        model.position = Vector3.zero;
+        assets.position = Vector3.zero;
+        if (currentObject != null)
+            Destroy(currentObject);
+        var newObject = Instantiate(objectPrefabs[objectIndex], assets);
+        currentObject = newObject;
+        AlignModel();
     }
 }

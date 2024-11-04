@@ -1,9 +1,19 @@
 fileFormatVersion: 2
-guid: c0c995ffeb8eeb54e8135c17b7c09377
+guid: c3917263ba403bc4ebafc39fede3a1f2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Streetlight
+    second: {fileID: 2100000, guid: 509669ecaf5245145a22f6a9a569b544, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 475f5a5f9f3e246408847f00ed793750, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
