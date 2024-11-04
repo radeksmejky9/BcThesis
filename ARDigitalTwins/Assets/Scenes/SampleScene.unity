@@ -206,16 +206,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e25b54338a18be48b747c2afca1bc52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoom: 16
-  apiKey: AIzaSyCPBu1rcroM-28pvCFVFj6Rrm29HQAzpLE
+  apiKey: 
   lat: 50.6602
   lon: 14.04113
+  zoom: 16
+  mapResolution: 1
+  mapType: 0
   points:
   - {fileID: 1444768133}
   - {fileID: 472829373}
   - {fileID: 472829373}
-  mapResolution: 1
-  mapType: 
 --- !u!114 &184361945
 MonoBehaviour:
   m_ObjectHideFlags: 0
