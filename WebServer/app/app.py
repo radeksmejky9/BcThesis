@@ -1,5 +1,6 @@
 from flask import (
     Flask,
+    jsonify,
     redirect,
     render_template,
     request,
@@ -28,9 +29,16 @@ def allowed_file(filename):
     )
 
 
+@app.route("/dropdb")
+def drop_db():
+    mongo.db.drop_collection("files")
+    return "Database dropped"
+
+
 @app.route("/")
 def index():
-    return render_template("index.html")
+    data = list(files_collection.find())
+    return render_template("index.html", data=data)
 
 
 @app.route("/upload", methods=["POST"])
@@ -65,9 +73,8 @@ def upload_file():
             "name": name,
         }
         files_collection.insert_one(file_metadata)
-
-        print("File uploaded and metadata saved.")
-        return render_template("index.html", filename=filename)
+        data = list(files_collection.find())
+        return render_template("index.html", data=data)
 
     print("File type not allowed")
     return "File type not allowed", 400
@@ -78,9 +85,12 @@ def uploaded_file(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 
-@app.route("/files/")
-def files():
-    return send_from_directory(app.config["UPLOAD_FOLDER"], "couch.obj")
+@app.route("/files", methods=["GET"])
+def get_file_metadata():
+    metadata = list(files_collection.find())
+    for file in metadata:
+        file["_id"] = str(file["_id"])
+    return jsonify(metadata)
 
 
 if __name__ == "__main__":

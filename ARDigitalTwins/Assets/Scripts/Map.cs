@@ -3,14 +3,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using System;
+using System.Collections.Generic;
 
 
 public class Map : MonoBehaviour
 {
+    public static Map Instance { get; private set; }
     public float Lat { get => lat; set { latLast = lat; lat = value; } }
     public float Lon { get => lon; set { lonLast = lon; lon = value; } }
-
+    private float latLast = 0;
+    private float lonLast = 0;
     public int ZoomLevel { get => zoomLevel; set { zoomLevelLast = zoomLevel; zoomLevel = value; } }
+    private int zoomLevelLast = 16;
+
+    public List<DBConnector.ModelMetadata> modelMetadata = new List<DBConnector.ModelMetadata>();
+
     [SerializeField]
     private int zoomLevel = 16;
     [SerializeField]
@@ -25,6 +32,8 @@ public class Map : MonoBehaviour
     private float coefLon = 0.00001375f;
     [SerializeField]
     private float coefLat = 0.0000086f;
+    [SerializeField]
+    private GameObject pointPrefab;
     public string mapType = "roadmap";
     private Point[] points;
     private string url = "";
@@ -32,13 +41,22 @@ public class Map : MonoBehaviour
     private int mapHeight = 1000;
     private bool mapIsLoading = false;
     private Rect rect;
-    private float latLast = 0;
-    private float lonLast = 0;
-    private int zoomLevelLast = 16;
     private RawImage mapImage;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {
+        InitPoints();
         StartCoroutine(GetGoogleMap());
         rect = gameObject.GetComponent<RawImage>().rectTransform.rect;
         mapWidth = (int)Math.Round(rect.width);
@@ -101,6 +119,19 @@ public class Map : MonoBehaviour
             {
                 point.adjustPosition(zoomLevel, mapHeight, mapWidth, Lat, Lon, coefLat, coefLon);
             }
+    }
+
+    public void InitPoints()
+    {
+        foreach (DBConnector.ModelMetadata model in modelMetadata)
+        {
+            if (model != null)
+            {
+                GameObject point = Instantiate(pointPrefab, gameObject.transform) as GameObject;
+                point.GetComponent<Point>().SetModelMetadata(model);
+                point.GetComponent<Button>().onClick.AddListener(() => ObjectManager.Instance.CreateObject(model.FileUrl));
+            }
+        }
     }
 
 
