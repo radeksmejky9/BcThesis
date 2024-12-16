@@ -1,110 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload Form</title>
+    <title>Formulář pro nahrávání</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-100 min-h-screen flex flex-col items-center py-10 dark:bg-gray-800">
-    <h1 class="text-3xl font-bold text-gray-900 mb-6 dark:text-white">Upload a File</h1>
-    <form action="/upload" method="post" enctype="multipart/form-data"
+    <h1 class="text-3xl font-bold text-gray-900 mb-6 dark:text-white">Nahrát GLB soubor</h1>
+    <form action="/files" method="post" enctype="multipart/form-data"
         class="bg-white shadow-lg rounded-lg p-6 w-full max-w-3xl dark:bg-gray-700">
         <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="lat">Latitude</label>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="lat">Zeměpisná
+                šířka</label>
             <input type="number" step="0.000001" name="lat" id="lat" required
                 class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
         </div>
         <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="lon">Longitude</label>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="lon">Zeměpisná
+                délka</label>
             <input type="number" step="0.000001" name="lon" id="lon" required
                 class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
         </div>
         <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="name">Name</label>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="name">Název</label>
             <input type="text" name="name" id="name" required
                 class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
         </div>
         <div class="mb-6">
-            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file">Choose a File</label>
-
-            <label for="file"
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="description">Popis</label>
+            <textarea name="description" id="description" rows="4" required
+                class="block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 cursor-pointer focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:text-gray-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"></textarea>
+        </div>
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="glbFile">GLB
+                soubor</label>
+            <label for="glbFile"
                 class="block w-full p-2 text-sm text-white bg-indigo-600 border border-gray-300 rounded-lg cursor-pointer hover:bg-indigo-700 focus:outline-none dark:bg-indigo-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-indigo-800">
-                <span id="fileName">Select a file</span>
+                <span id="glbFileName">Vyberte GLB soubor</span>
             </label>
-            <input class="hidden" id="file" name="file" type="file" accept=".obj" required onchange="displayFileName()">
+            <input class="hidden" id="glbFile" name="glbFile" type="file" accept=".glb" required
+                onchange="displayFileName('glbFile')">
+        </div>
+        <div class="mb-6">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="imgFile">Náhledový
+                obrázek</label>
+            <label for="imgFile"
+                class="block w-full p-2 text-sm text-white bg-indigo-600 border border-gray-300 rounded-lg cursor-pointer hover:bg-indigo-700 focus:outline-none dark:bg-indigo-700 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-indigo-800">
+                <span id="imgFileName">Vyberte obrázek</span>
+            </label>
+            <input class="hidden" id="imgFile" name="imgFile" type="file" accept="image/*" required
+                onchange="displayFileName('imgFile')">
         </div>
         <div class="flex justify-center">
-            <input type="submit" value="Upload"
+            <input type="submit" value="Nahrát"
                 class="bg-indigo-600 text-white px-6 py-3 rounded-lg shadow-sm hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-300 dark:focus:ring-indigo-900">
         </div>
     </form>
-
-    <h1 class="text-2xl font-semibold text-gray-900 mt-10 mb-4 dark:text-white">Uploaded Files Metadata</h1>
-
+    <h1 class="text-2xl font-semibold text-gray-900 mt-10 mb-4 dark:text-white">Metadata nahraných souborů</h1>
     <div class="overflow-x-auto w-full max-w-6xl">
-        <table class="min-w-full bg-white shadow-md rounded-lg dark:bg-gray-700">
+        <table class="table-auto w-full text-left bg-white shadow-lg rounded-lg dark:bg-gray-700 dark:text-gray-200">
             <thead>
-                <tr class="bg-gray-200 dark:bg-gray-600">
-                    <th
-                        class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-200 uppercase tracking-wider">
-                        ID</th>
-                    <th
-                        class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-200 uppercase tracking-wider">
-                        Filename</th>
-                    <th
-                        class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-200 uppercase tracking-wider">
-                        Latitude</th>
-                    <th
-                        class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-200 uppercase tracking-wider">
-                        Longitude</th>
-                    <th
-                        class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-200 uppercase tracking-wider">
-                        Name</th>
-                    <th
-                        class="px-6 py-3 text-left text-sm font-medium text-gray-900 dark:text-gray-200 uppercase tracking-wider">
-                        File URL</th>
+                <tr class="bg-indigo-600 text-white">
+                    <th class="px-6 py-3 text-sm font-medium uppercase">ID</th>
+                    <th class="px-6 py-3 text-sm font-medium uppercase">Název GLB souboru</th>
+                    <th class="px-6 py-3 text-sm font-medium uppercase">Zeměpisná šířka</th>
+                    <th class="px-6 py-3 text-sm font-medium uppercase">Zeměpisná délka</th>
+                    <th class="px-6 py-3 text-sm font-medium uppercase">Název</th>
+                    <th class="px-6 py-3 text-sm font-medium uppercase">Popis</th>
+                    <th class="px-6 py-3 text-sm font-medium uppercase">Náhledový obrázek</th>
                 </tr>
             </thead>
             <tbody>
                 {% if data %}
                 {% for record in data %}
-                <tr class="border-t dark:border-gray-600">
-                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">{{ record._id }}</td>
-                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">{{ record.filename }}</td>
-                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">{{ record.lat }}</td>
-                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">{{ record.lon }}</td>
-                    <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">{{ record.name }}</td>
-                    <td class="px-6 py-4 text-sm text-indigo-600">
-                        <a href="{{ record.file_url }}" target="_blank" class="hover:underline">{{ record.file_url
-                            }}</a>
+                <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800">
+                    <td class="px-6 py-4 text-sm">{{ record._id }}</td>
+                    <td class="px-6 py-4 text-sm">{{ record.glb_filename }}</td>
+                    <td class="px-6 py-4 text-sm">{{ record.lat }}</td>
+                    <td class="px-6 py-4 text-sm">{{ record.lon }}</td>
+                    <td class="px-6 py-4 text-sm">{{ record.name }}</td>
+                    <td class="px-6 py-4 text-sm">{{ record.description }}</td>
+                    <td class="px-6 py-4">
+                        <img src="{{ url_for('uploaded_file', filename=record.img_filename) }}"
+                            alt="Preview for {{ record.name }}" class="h-20 w-auto rounded-lg shadow">
                     </td>
                 </tr>
                 {% endfor %}
                 {% else %}
                 <tr>
-                    <td colspan="6" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">No files
-                        uploaded yet.</td>
+                    <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400">Zatím nebyly
+                        nahrány žádné soubory.</td>
                 </tr>
                 {% endif %}
             </tbody>
         </table>
     </div>
-
     <script>
-        function displayFileName() {
-            const fileInput = document.getElementById("file");
-            const fileNameDisplay = document.getElementById("fileName");
+        function displayFileName(inputId) {
+            const fileInput = document.getElementById(inputId);
+            const fileNameDisplay = document.getElementById(inputId + "Name");
             if (fileInput.files.length > 0) {
-                fileNameDisplay.textContent = `${fileInput.files[0].name}`;
+                fileNameDisplay.textContent = fileInput.files[0].name;
             } else {
-                fileNameDisplay.textContent = "Select a file";
+                fileNameDisplay.textContent = "Vyberte soubor";
             }
         }
     </script>
-
 </body>
 
 </html>

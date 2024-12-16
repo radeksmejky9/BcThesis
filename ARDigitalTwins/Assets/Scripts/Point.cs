@@ -8,8 +8,19 @@ public class Point : MonoBehaviour
     [SerializeField]
     private float lon;
     [SerializeField]
-    public string url;
+    private string name;
+    [SerializeField]
+    private string description;
+    [SerializeField]
+    private object imgFilename;
 
+    public UnityEngine.UI.Image img;
+
+    public void Start()
+    {
+        img = gameObject.GetComponent<UnityEngine.UI.Image>();
+
+    }
 
     public void adjustPosition(int zoomLevel, int mapHeight, int mapWidth, float mapLat, float mapLon, float coefLat, float coefLon)
     {
@@ -26,18 +37,27 @@ public class Point : MonoBehaviour
             posY > mapHeight / 2 ||
             posY < -mapHeight / 2)
         {
-            gameObject.SetActive(false);
+            if (img != null)
+            {
+                img.enabled = false;
+            }
         }
         else
         {
-            gameObject.SetActive(true);
+            if (img != null)
+            {
+                img.enabled = true;
+            }
         }
+
     }
 
     public void SetModelMetadata(DBConnector.ModelMetadata modelMetadata)
     {
         this.lat = modelMetadata.Latitude;
         this.lon = modelMetadata.Longitude;
-        this.url = modelMetadata.FileUrl;
+        this.name = modelMetadata.Name;
+        this.description = modelMetadata.Description;
+        this.imgFilename = modelMetadata.ImgFilename;
     }
 }

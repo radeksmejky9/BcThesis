@@ -16,8 +16,6 @@ public class Map : MonoBehaviour
     public int ZoomLevel { get => zoomLevel; set { zoomLevelLast = zoomLevel; zoomLevel = value; } }
     private int zoomLevelLast = 16;
 
-    public List<DBConnector.ModelMetadata> modelMetadata = new List<DBConnector.ModelMetadata>();
-
     [SerializeField]
     private int zoomLevel = 16;
     [SerializeField]
@@ -35,7 +33,6 @@ public class Map : MonoBehaviour
     [SerializeField]
     private GameObject pointPrefab;
     public string mapType = "roadmap";
-    private Point[] points;
     private string url = "";
     private int mapWidth = 1000;
     private int mapHeight = 1000;
@@ -56,13 +53,11 @@ public class Map : MonoBehaviour
 
     void Start()
     {
-        InitPoints();
         StartCoroutine(GetGoogleMap());
         rect = gameObject.GetComponent<RawImage>().rectTransform.rect;
         mapWidth = (int)Math.Round(rect.width);
         mapHeight = (int)Math.Round(rect.height);
         mapImage = gameObject.GetComponent<RawImage>();
-        points = gameObject.GetComponentsInChildren<Point>();
         RemapPoints();
         zoomLevelLast = zoomLevel;
         lonLast = lon;
@@ -73,15 +68,28 @@ public class Map : MonoBehaviour
     {
         if (zoomLevelLast != zoomLevel && !mapIsLoading)
         {
+            RefetchPoints();
             StartCoroutine(GetGoogleMap());
             zoomLevelLast = zoomLevel;
         }
         if (latLast != lat && !mapIsLoading || lonLast != lon && !mapIsLoading)
         {
+            RefetchPoints();
             StartCoroutine(GetGoogleMap());
             lonLast = lon;
             latLast = lat;
         }
+    }
+
+    public void RefetchPoints()
+    {
+        var points = gameObject.GetComponentsInChildren<Point>();
+        foreach (var point in points)
+        {
+            Destroy(point.gameObject);
+        }
+        DBConnector.Instance.RefetchFileMetadata();
+        RemapPoints();
     }
 
     IEnumerator GetGoogleMap()
@@ -112,8 +120,8 @@ public class Map : MonoBehaviour
 
 
     public void RemapPoints()
-
     {
+        var points = gameObject.GetComponentsInChildren<Point>();
         if (points.Length > 0)
             foreach (var point in points)
             {
@@ -121,7 +129,7 @@ public class Map : MonoBehaviour
             }
     }
 
-    public void InitPoints()
+    public void InitPoints(List<DBConnector.ModelMetadata> modelMetadata)
     {
         foreach (DBConnector.ModelMetadata model in modelMetadata)
         {
@@ -129,11 +137,18 @@ public class Map : MonoBehaviour
             {
                 GameObject point = Instantiate(pointPrefab, gameObject.transform) as GameObject;
                 point.GetComponent<Point>().SetModelMetadata(model);
-                point.GetComponent<Button>().onClick.AddListener(() => ObjectManager.Instance.CreateObject(model.FileUrl));
+                point.GetComponent<Button>().onClick.AddListener(() => ObjectModal.Instance.modalUIObject.SetActive(true));
+                point.GetComponent<Button>().onClick.AddListener(
+                    () => ObjectModal.Instance.UpdateModal(
+                        model.Name,
+                        model.Description,
+                        DBConnector.Instance.apiUrl + "/files/" + model.ImgFilename + "/download",
+                        DBConnector.Instance.apiUrl + "/files/" + model.GlbFilename + "/download"));
+
             }
         }
+        RemapPoints();
     }
-
 
     public void Move(int direction)
     {

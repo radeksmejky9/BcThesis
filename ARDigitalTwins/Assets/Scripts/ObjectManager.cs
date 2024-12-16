@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Networking;
 using System;
-using Dummiesman;
+using System.IO;
 
 public class ObjectManager : MonoBehaviour
 {
@@ -68,22 +67,9 @@ public class ObjectManager : MonoBehaviour
 
     IEnumerator DownloadModel(string url)
     {
-        UnityWebRequest request = UnityWebRequest.Get(url);
-        yield return request.SendWebRequest();
-
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            byte[] modelData = request.downloadHandler.data;
-            string filePath = System.IO.Path.Combine(Application.persistentDataPath, "model.obj");
-            System.IO.File.WriteAllBytes(filePath, modelData);
-            OBJLoader objLoader = new OBJLoader();
-            GameObject loadedModel = objLoader.Load(filePath);
-            currentObject = loadedModel;
-            AlignModel();
-        }
-        else
-        {
-            Debug.LogError("Error downloading the model: " + request.error);
-        }
+        var gltf = gameObject.AddComponent<GLTFast.GltfAsset>();
+        gltf.Url = url;
+        yield break;
     }
+
 }

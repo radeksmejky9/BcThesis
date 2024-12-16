@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 public class DBConnector : MonoBehaviour
 {
     public static DBConnector Instance { get; private set; }
-    private string apiUrl = "http://192.168.37.142:5000/files";
+    public string apiUrl;
 
     private void Awake()
     {
@@ -21,9 +21,15 @@ public class DBConnector : MonoBehaviour
         StartCoroutine(GetFileMetadataCoroutine());
     }
 
+    public void RefetchFileMetadata()
+    {
+        StartCoroutine(GetFileMetadataCoroutine());
+    }
+
     private IEnumerator GetFileMetadataCoroutine()
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(apiUrl))
+        Debug.Log(apiUrl + "/files");
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(apiUrl + "/files"))
         {
             yield return webRequest.SendWebRequest();
             if (webRequest.result != UnityWebRequest.Result.Success)
@@ -38,9 +44,9 @@ public class DBConnector : MonoBehaviour
                     List<ModelMetadata> filesMetadata = JsonConvert.DeserializeObject<List<ModelMetadata>>(webRequest.downloadHandler.text);
                     foreach (ModelMetadata metadata in filesMetadata)
                     {
-                        Debug.Log($"{metadata.ID}, {metadata.FilePath}, {metadata.FileUrl}, {metadata.Filename}, {metadata.Latitude}, {metadata.Longitude}, {metadata.Name}");
+                        Debug.Log($"{metadata.ID}, {metadata.GlbFilename}, {metadata.Latitude}, {metadata.Longitude}, {metadata.Name}");
                     }
-                    Map.Instance.modelMetadata = filesMetadata;
+                    Map.Instance.InitPoints(filesMetadata);
                 }
                 catch (JsonSerializationException jsonEx)
                 {
@@ -56,14 +62,10 @@ public class DBConnector : MonoBehaviour
         [JsonProperty("_id")]
         public string ID { get; set; }
 
-        [JsonProperty("file_path")]
-        public string FilePath { get; set; }
-
-        [JsonProperty("file_url")]
-        public string FileUrl { get; set; }
-
-        [JsonProperty("filename")]
-        public string Filename { get; set; }
+        [JsonProperty("glb_filename")]
+        public string GlbFilename { get; set; }
+        [JsonProperty("img_filename")]
+        public string ImgFilename { get; set; }
 
         [JsonProperty("lat")]
         public float Latitude { get; set; }
@@ -73,5 +75,8 @@ public class DBConnector : MonoBehaviour
 
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
     }
 }
