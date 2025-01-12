@@ -28,8 +28,8 @@
 \ProcessOptions\relax
 
 \ifthenelse{\boolean{czech}}{%
-     \LoadClass[12pt,english,czech]{scrbook}}{%
-     \LoadClass[12pt,czech,english]{scrbook}}
+\LoadClass[12pt,english,czech]{scrbook}}{%
+\LoadClass[12pt,czech,english]{scrbook}}
 
 \geometry{margin=2cm,inner=2.5cm,headheight=1cm,footskip=1.25cm}
 
@@ -40,15 +40,15 @@
 \fancyhead[LO,RE]{}
 
 \fancypagestyle{plain}{%
-     \fancyhf{} % prázdné záhlaví
-     \fancyfoot[C]{\thepage} % except the center
-     \renewcommand{\headrulewidth}{0pt}
-     \renewcommand{\footrulewidth}{0pt}}
+\fancyhf{} % prázdné záhlaví
+\fancyfoot[C]{\thepage} % except the center
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
 
 %\renewcommand{\chaptermark}[1]{\markboth{\arabic{chapter}. #1}{}}
 
 %nastavení hloubky číslování a hloubky obsahu (do sections)
-\setcounter{secnumdepth}{1}
+\setcounter{secnumdepth}{1} 
 \setcounter{tocdepth}{1}
 
 %nastavení odstavců
@@ -58,19 +58,19 @@
 
 % nastavení českých typografických pravidel
 \iftutex
-     \usepackage{polyglossia}
-     \ifthenelse{\boolean{czech}}
-     {\setdefaultlanguage{czech}\setotherlanguage{english}}
-     {\setdefaultlanguage{english}\setotherlanguage{czech}}
+\usepackage{polyglossia}
+\ifthenelse{\boolean{czech}}
+{\setdefaultlanguage{czech}\setotherlanguage{english}}
+{\setdefaultlanguage{english}\setotherlanguage{czech}}
 \else
-     \usepackage{babel}
+\usepackage{babel}
 \fi
 
 \newcommand{\univerzita}{Univerzita Jana Evangelisty Purkyně \\v Ústí nad Labem}
 \newcommand{\fakulta}{Přírodovědecká fakulta}
 \newcommand{\katedra}{Katedra informatiky}
 \ifthenelse{\boolean{api}}{\newcommand{\program}{Aplikovaná informatika}}
-{\ifthenelse{\boolean{bc}}{\newcommand{\program}{Informatika pro vzdělávání}}
-     {\newcommand{\program}{Učitelství informatiky pro střední školy}}}
+     {\ifthenelse{\boolean{bc}}{\newcommand{\program}{Informatika pro vzdělávání}}
+                               {\newcommand{\program}{Učitelství informatiky pro střední školy}}}
 \ifthenelse{\boolean{is}}{\newcommand{\obor}{Informační systémy}}
-{\newcommand{\obor}{Aplikovaná informatika}}
+                         {\newcommand{\obor}{Aplikovaná informatika}}
