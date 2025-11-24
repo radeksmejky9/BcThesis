@@ -58,18 +58,24 @@ public class ObjectManager : MonoBehaviour
 
     public void CreateObject(string url)
     {
-        model.position = Vector3.zero;
-        assets.position = Vector3.zero;
         if (currentObject != null)
-            Destroy(currentObject);
-        StartCoroutine(DownloadModel(url));
+            while (assets.transform.childCount > 0) Destroy(assets.transform.GetChild(0).gameObject);
+        StartCoroutine(DownloadModel(url, assets.gameObject));
     }
 
-    IEnumerator DownloadModel(string url)
+    IEnumerator DownloadModel(string url, GameObject gameObject)
     {
+        Debug.Log("Downloading model");
+        var oldAssets = gameObject.GetComponents<GLTFast.GltfAsset>();
+        foreach (var old in oldAssets)
+        {
+            Destroy(old);
+        }
         var gltf = gameObject.AddComponent<GLTFast.GltfAsset>();
         gltf.Url = url;
+
         yield break;
     }
+
 
 }

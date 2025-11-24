@@ -1,0 +1,232 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{AROverview}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=a52dfb2695cd050d7602476a90253575}{%
+           family={FABIO},
+           familyi={F\bibinitperiod},
+           given={Arena},
+           giveni={A\bibinitperiod}}}%
+        {{hash=c5802807dd451a506cda9b9bf97d24df}{%
+           family={COLLOTTA},
+           familyi={C\bibinitperiod},
+           given={Mario},
+           giveni={M\bibinitperiod}}}%
+        {{hash=9a2bb71032fc8b432df0453ba48c43cc}{%
+           family={PAU},
+           familyi={P\bibinitperiod},
+           given={Giovanni},
+           giveni={G\bibinitperiod}}}%
+        {{hash=583c085a6e8142ea56dc528c816eb24b}{%
+           family={TERMINE},
+           familyi={T\bibinitperiod},
+           given={Francesco},
+           giveni={F\bibinitperiod}}}%
+      }
+      \strng{namehash}{9b6fc1f51be6faa243ab79892ef7ab06}
+      \strng{fullhash}{9b6fc1f51be6faa243ab79892ef7ab06}
+      \strng{fullhashraw}{9b6fc1f51be6faa243ab79892ef7ab06}
+      \strng{bibnamehash}{9b6fc1f51be6faa243ab79892ef7ab06}
+      \strng{authorbibnamehash}{9b6fc1f51be6faa243ab79892ef7ab06}
+      \strng{authornamehash}{9b6fc1f51be6faa243ab79892ef7ab06}
+      \strng{authorfullhash}{9b6fc1f51be6faa243ab79892ef7ab06}
+      \strng{authorfullhashraw}{9b6fc1f51be6faa243ab79892ef7ab06}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Computers}
+      \field{title}{An Overview of Augmented Reality}
+      \field{urlday}{17}
+      \field{urlmonth}{12}
+      \field{urlyear}{2024}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://doi.org/https://doi.org/10.3390/computers11020028
+      \endverb
+      \verb{url}
+      \verb https://doi.org/https://doi.org/10.3390/computers11020028
+      \endverb
+    \endentry
+    \entry{BeyondAR}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=fe480131a8cc7e0d35c8e58fec8c7a5f}{%
+           family={Tremosa},
+           familyi={T\bibinitperiod},
+           given={Laia},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{fe480131a8cc7e0d35c8e58fec8c7a5f}
+      \strng{fullhash}{fe480131a8cc7e0d35c8e58fec8c7a5f}
+      \strng{fullhashraw}{fe480131a8cc7e0d35c8e58fec8c7a5f}
+      \strng{bibnamehash}{fe480131a8cc7e0d35c8e58fec8c7a5f}
+      \strng{authorbibnamehash}{fe480131a8cc7e0d35c8e58fec8c7a5f}
+      \strng{authornamehash}{fe480131a8cc7e0d35c8e58fec8c7a5f}
+      \strng{authorfullhash}{fe480131a8cc7e0d35c8e58fec8c7a5f}
+      \strng{authorfullhashraw}{fe480131a8cc7e0d35c8e58fec8c7a5f}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Beyond AR vs. VR: What is the Difference between AR vs. MR vs. VR vs. XR?}
+      \field{urlday}{5}
+      \field{urlmonth}{2}
+      \field{urlyear}{2025}
+      \field{year}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.interaction-design.org/literature/article/beyond-ar-vs-vr-what-is-the-difference-between-ar-vs-mr-vs-vr-vs-xr
+      \endverb
+      \verb{url}
+      \verb https://www.interaction-design.org/literature/article/beyond-ar-vs-vr-what-is-the-difference-between-ar-vs-mr-vs-vr-vs-xr
+      \endverb
+    \endentry
+    \entry{ITJIm}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=3512553a1b22e1f766dd0a3be68e2124}{%
+           family={SHARAPOV},
+           familyi={S\bibinitperiod},
+           given={DMYTRO},
+           giveni={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{3512553a1b22e1f766dd0a3be68e2124}
+      \strng{fullhash}{3512553a1b22e1f766dd0a3be68e2124}
+      \strng{fullhashraw}{3512553a1b22e1f766dd0a3be68e2124}
+      \strng{bibnamehash}{3512553a1b22e1f766dd0a3be68e2124}
+      \strng{authorbibnamehash}{3512553a1b22e1f766dd0a3be68e2124}
+      \strng{authornamehash}{3512553a1b22e1f766dd0a3be68e2124}
+      \strng{authorfullhash}{3512553a1b22e1f766dd0a3be68e2124}
+      \strng{authorfullhashraw}{3512553a1b22e1f766dd0a3be68e2124}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Marker-Based Augmented Reality - It-Jim}
+      \field{urlday}{11}
+      \field{urlmonth}{2}
+      \field{urlyear}{2025}
+      \field{year}{c2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.it-jim.com/blog/augmented-reality-tracking-with-different-markers
+      \endverb
+      \verb{url}
+      \verb https://www.it-jim.com/blog/augmented-reality-tracking-with-different-markers
+      \endverb
+    \endentry
+    \entry{IkeaPlace}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=65d6b2613559085ad3f5303cc65df6ad}{%
+           family={{IKEA}},
+           familyi={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{65d6b2613559085ad3f5303cc65df6ad}
+      \strng{fullhash}{65d6b2613559085ad3f5303cc65df6ad}
+      \strng{fullhashraw}{65d6b2613559085ad3f5303cc65df6ad}
+      \strng{bibnamehash}{65d6b2613559085ad3f5303cc65df6ad}
+      \strng{authorbibnamehash}{65d6b2613559085ad3f5303cc65df6ad}
+      \strng{authornamehash}{65d6b2613559085ad3f5303cc65df6ad}
+      \strng{authorfullhash}{65d6b2613559085ad3f5303cc65df6ad}
+      \strng{authorfullhashraw}{65d6b2613559085ad3f5303cc65df6ad}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Launch of new IKEA Place app – IKEA Global}
+      \field{urlday}{27}
+      \field{urlmonth}{12}
+      \field{urlyear}{2024}
+      \field{year}{2017}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.ikea.com/global/en/newsroom/innovation/ikea-launches-ikea-place-a-new-app-that-allows-people-to-virtually-place-furniture-in-their-home-170912/
+      \endverb
+      \verb{url}
+      \verb https://www.ikea.com/global/en/newsroom/innovation/ikea-launches-ikea-place-a-new-app-that-allows-people-to-virtually-place-furniture-in-their-home-170912/
+      \endverb
+    \endentry
+    \entry{IQLANDIAGeo}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=9671b43e9acfcea6f8281f209ca5d563}{%
+           family={IQLANDIA},
+           familyi={I\bibinitperiod}}}%
+      }
+      \strng{namehash}{9671b43e9acfcea6f8281f209ca5d563}
+      \strng{fullhash}{9671b43e9acfcea6f8281f209ca5d563}
+      \strng{fullhashraw}{9671b43e9acfcea6f8281f209ca5d563}
+      \strng{bibnamehash}{9671b43e9acfcea6f8281f209ca5d563}
+      \strng{authorbibnamehash}{9671b43e9acfcea6f8281f209ca5d563}
+      \strng{authornamehash}{9671b43e9acfcea6f8281f209ca5d563}
+      \strng{authorfullhash}{9671b43e9acfcea6f8281f209ca5d563}
+      \strng{authorfullhashraw}{9671b43e9acfcea6f8281f209ca5d563}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Geo - expozice | iQLANDIA.CZ}
+      \field{urlday}{28}
+      \field{urlmonth}{12}
+      \field{urlyear}{2024}
+      \field{year}{c2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://iqlandia.cz/iqlandia/expozice/geo
+      \endverb
+      \verb{url}
+      \verb https://iqlandia.cz/iqlandia/expozice/geo
+      \endverb
+    \endentry
+    \entry{googlelens}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=8b36e9207c24c76e6719268e49201d94}{%
+           family={Google},
+           familyi={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{8b36e9207c24c76e6719268e49201d94}
+      \strng{fullhash}{8b36e9207c24c76e6719268e49201d94}
+      \strng{fullhashraw}{8b36e9207c24c76e6719268e49201d94}
+      \strng{bibnamehash}{8b36e9207c24c76e6719268e49201d94}
+      \strng{authorbibnamehash}{8b36e9207c24c76e6719268e49201d94}
+      \strng{authornamehash}{8b36e9207c24c76e6719268e49201d94}
+      \strng{authorfullhash}{8b36e9207c24c76e6719268e49201d94}
+      \strng{authorfullhashraw}{8b36e9207c24c76e6719268e49201d94}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Google Lens – vyhledávejte, co vidíte}
+      \field{urlday}{28}
+      \field{urlmonth}{12}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://lens.google/intl/cs/
+      \endverb
+      \verb{url}
+      \verb https://lens.google/intl/cs/
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

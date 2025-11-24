@@ -1,5 +1,79 @@
 \chapter{Praktická část}
+
 \section{Metodika práce}
+Práce na vývoji prototypu aplikace byla rozdělena do několika etap, které na sebe navazovaly. Cílem bylo postupovat systematicky, od úvodní analýzy a rešerše až po návrh, implementaci a testování aplikace. Při plánování metodického postupu byl zvolen vodopádový model s prvky iterativního přístupu. Vodopádový model je pro akademické práce vhodný kvůli pevnému zadání, které je potřeba nadefinovat před začátkem práce a prvky iterativního modelu jsou zase vhodné při jednotlivých fázích vývoje.
+
+V první fázi byla provedena analýza zadání a dostupných technologií. Tato etapa zahrnovala rešerši týkající se rozšířené reality, digitálních dvojčat a mobilních aplikací, s důrazem na využití v oblasti stavebnictví a územního plánování. Součástí této analýzy bylo také prostudování existujících řešení a výběr vhodného přístupu k návrhu vlastní aplikace.
+
+Na základě zjištěných poznatků následovala fáze specifikace požadavků, ve které byly stanoveny hlavní funkce, které má aplikace splňovat. Důraz byl kladen na využití rozšířené reality pro zobrazení 3D modelů stavebních projektů, přístup k těmto modelům prostřednictvím mapy nebo QR kódu a možnost zpětné vazby ze strany uživatele.
+
+Následovala fáze návrhu systému, kde byl na základě definovaných požadavků vytvořen návrh architektury celé aplikace. Tento návrh zahrnoval návrh klientské i serverové části.
+
+Po dokončení návrhu byla zahájena fáze implementace systému. Vývoj probíhal postupně, průběžné konzultace s vedoucím práce a zpětná vazba hrály klíčovou roli při ladění funkcionality.
+
+Závěrečnou část metodiky tvořilo manuální testování, během kterého byly ověřeny všechny klíčové funkcionality aplikace, jako jsou rozšířená realita, načítání 3D modelů, komunikace se serverem a mapová navigace.
+\pagebreak
+
+a
+
+\pagebreak
 \section{Návrh systému}
+
+\subsection{Architektura systému}
+Systém využívá architekturu klient-server a skládá se tedy ze dvou hlavních částí: klientské části a serverové části (API a databáze). Klientská část zajišťuje interakci s uživatelem, vizualizaci digitálních dvojčat v rozšířené realitě, práci s mapovým rozhraním a komunikaci se serverem. Serverová část přijímá požadavky klientů, poskytuje data digitálních dvojčat, přijímá a ukládá zpětnou vazbu uživatelů a spravuje modely.
+
+Modulární návrh umožňuje samostatný rozvoj jednotlivých částí systému a zajišťuje efektivní přenos dat mezi klientem a serverem. Hlavní tok dat začíná na klientské straně výběrem digitálního dvojčete, například prostřednictvím mapového rozhraní nebo QR kódu. Následně klient odešle požadavek na server, model a jeho metadata jsou staženy a následně zobrazeny v prostředí rozšířené reality. Po prohlédnutí modelu může uživatel odeslat zpětnou vazbu na server. Oddělení klientské a serverové logiky podporuje budoucí rozšiřitelnost a škálovatelnost systému.
+\subsection{Sekvenční diagram systému}
+Sekvenční diagram znázorňuje hlavní procesy, které probíhají při používání aplikace. Jedná se o samotné zapnutí aplikace, zobrazení mapy, výběr projketu, vizualizaci a hodnocení projektu. Na diagramu vystupují čtyři klíčové komponenty, kterými jsou uživatel, mobilní aplikace, serverová část spolu s databází a externí služba Google Maps API.
+
+Po spuštění aplikace odešle mobilní zařízení požadavek na sever a vyžádá si seznam dostupných projektů. Server tato data načte z databáze a vrátí je zpět klientovi, aby bylo možné pokračovat na mapovou obrazovku.
+
+V části věnované mapovému zobrazení dochází k opakovanému načítání mapových dlaždic podle toho, jak uživatel s mapou interaguje (pohyb, přibližování a oddalování). Mobilní aplikace nejprve ověří dostupnost dlaždice na serveru. Pokud požadovaná dlaždice není dostupná, nebo není aktuální, server ji nejprve stáhne z Google Maps API, uloží do databáze a následně odešle klientovi. V opačném případě je načtena přímo z databáze. Klient poté aktualizuje pozice projektových markerů na mapě.
+
+Při výběru konkrétního projektu odešle aplikace dotaz na server a získá detailní informace o projektu. Po jejich načtení z databáze se uživateli zobrazí náhledová obrazovka, která umožňuje přejít do režimu rozšířené reality.
+
+V okamžiku, kdy uživatel požádá o zobrazení digitálního dvojčete v AR, aplikace si od serveru vyžádá 3D model příslušného projektu. Server jej získá z databáze, odešle zpět klientovi a mobilní aplikace model následně vizualizuje v AR.
+
+Poslední část diagramu popisuje odeslání uživatelské zpětné vazby. Po vyplnění hodnocení odešle aplikace data na server, který uloží hodnocení do databáze.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.56]{images/uml1.png}
+    \caption{Sekvenční diagram systému}
+    \label{fig:uml1}
+\end{figure}
+
+
+\subsection{Klientská část (mobilní aplikace)}
+Klientská část mobilní aplikace slouží jako hlavní prostředí, ve kterém uživatel pracuje s digitálními dvojčaty. Umožňuje vyhledávat dostupné projekty pomocí interaktivní mapy nebo je rychle načíst prostřednictvím QR kódu. Po výběru je 3D model načten ze serveru a zobrazen v rozšířené realitě, přičemž není nutné používat fyzické markery. Model lze volně prohlížet z různých úhlů, což uživateli poskytuje lepší prostorovou představu o jeho podobě i fungování. Veškerá data jsou získávána dynamicky ze serveru, aby byla zajištěna aktuálnost jednotlivých projektů, a po prohlédnutí může uživatel odeslat zpětnou vazbu prostřednictvím jednoduchého formuláře.
+
+\subsection{Návrh uživatelského rozhraní}
+Uživatelské rozhraní je koncipováno jako přehledné a intuitivní. Obsahuje hlavní AR obrazovku s digitálním dvojčetem, mapové rozhraní pro výběr projektů, informační panel s detailem projektu a formulář pro zpětnou vazbu. Navigace v jednotlivých obrazovkách je řešena spodním navigačním panelem. Ostatní ovládací prvky jsou ukotveny k okrajům obrazovky tak, aby byla zajištěna alespoň minimální forma responzivity rozhraní.
+
+Návrh uživatelského rozhraní zahrnuje čtyři klíčové obrazovky, které společně pokrývají celý proces práce s digitálním dvojčetem. První z nich je AR režim, který umožňuje zobrazit 3D model přímo v reálném prostředí. Uživatel si může model zobrazit přímo v reálném prostředí před sebou. Tento pohled je navržen s důrazem na minimální množství ovládacích prvků, aby nerušil vizuální dojem a umožnil maximální prostor pro samotnou vizualizaci.
+
+Druhá obrazovka přestavuje mapový systém, který slouží jako hlavní způsob výběru dostupných digitálních dvojčat. Uživatel zde může přibližovat či oddalovat mapu, vybírat projekty podle jejich polohy.
+
+Třetí obrazovka poskytuje náhled projektu, tedy stránku s důležitými informacemi o vybraném digitálním dvojčeti. Zobrazuje název projektu, ilustrační obrázek a stručný popis, který uživateli pomáhá pochopit kontext před vstupem do rozšířené reality. Tato obrazovka slouží jako logický mezikrok mezi mapou a samotným AR režimem.
+
+Poslední obrazovkou je hodnocení projektu, které umožňuje uživateli poskytnout zpětnou vazbu. Kombinuje textové pole pro komentář a hvězdičkové hodnocení. Tato část rozhraní podporuje jednoduché a rychlé vyplnění tak, aby zpětná vazba nebyla pro uživatele zbytečnou zátěží.
+
+Napříč všemi obrazovkami byla věnována pozornost také volbě velikosti písma. Nadpisy a klíčové informace využívají větší, výraznější typografii, zatímco doprovodné texty a sekundární prvky pracují s menší velikostí písma. Teto přístup zajišťuje zřetelné hierarchické členení informací, dobrou čitelnost a jednotný vizuální styl napříč celou aplikací.
+\pagebreak
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.5]{images/Figma.png}
+    \caption{Návrh mobilního rozhraní - Figma prototyp všech čtyř hlavních obrazovek}
+    \label{fig:figma}
+\end{figure}
+
+\subsection{Serverová část a správa dat}
+Server přijímá požadavky od klientů, zpracovává je a poskytuje data digitálních dvojčat včetně 3D modelů a doprovodných informací. Kromě poskytování dat server přijímá a ukládá zpětnou vazbu uživatelů a zajišťuje konzistenci informací v databázi. Oddělení logiky klienta a serveru podporuje rozšiřitelnost systému. Komunikace probíhá prostřednictvím definovaného API, které zajišťuje efektivní přenos dat.
+
+\subsection{Komunikační protokoly a datové formáty}
+Data mezi klientem a serverem jsou přenášena prostřednictvím zabezpečeného protokolu vhodného pro přenos textových i binárních dat. Formát dat umožňuje snadnou serializaci a deserializaci, což usnadňuje jejich zpracování na obou stranách systému. 3D modely včetně textur jsou přenášeny ve formátu optimalizovaném pro mobilní zobrazovací prostředí.
+
 \section{Vybraný technologický zásobník}
+
+
 \section{Implementace systému}

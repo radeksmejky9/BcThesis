@@ -9,6 +9,9 @@ using System.Collections.Generic;
 public class Map : MonoBehaviour
 {
     public static Map Instance { get; private set; }
+
+    public GameObject Controls;
+    public GameObject MapUI;
     public float Lat { get => lat; set { latLast = lat; lat = value; } }
     public float Lon { get => lon; set { lonLast = lon; lon = value; } }
     private float latLast = 0;
@@ -138,13 +141,19 @@ public class Map : MonoBehaviour
                 GameObject point = Instantiate(pointPrefab, gameObject.transform) as GameObject;
                 point.GetComponent<Point>().SetModelMetadata(model);
                 point.GetComponent<Button>().onClick.AddListener(() => ObjectModal.Instance.modalUIObject.SetActive(true));
+                point.GetComponent<Button>().onClick.AddListener(() => Map.Instance.MapUI.SetActive(false));
+                point.GetComponent<Button>().onClick.AddListener(() => Map.Instance.Controls.SetActive(false));
                 point.GetComponent<Button>().onClick.AddListener(
                     () => ObjectModal.Instance.UpdateModal(
                         model.Name,
                         model.Description,
                         DBConnector.Instance.apiUrl + "/files/" + model.ImgFilename + "/download",
                         DBConnector.Instance.apiUrl + "/files/" + model.GlbFilename + "/download"));
-
+                point.GetComponent<Button>().onClick.AddListener(
+                    () => RatingModal.Instance.UpdateModal(
+                        model.Name,
+                        model.Description,
+                        DBConnector.Instance.apiUrl + "/files/" + model.ImgFilename + "/download"));
             }
         }
         RemapPoints();
