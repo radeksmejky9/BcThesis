@@ -9,7 +9,7 @@ Na základě zjištěných poznatků následovala fáze specifikace požadavků,
 
 Následovala fáze návrhu systému, kde byl na základě definovaných požadavků vytvořen návrh architektury celé aplikace. Tento návrh zahrnoval návrh klientské i serverové části.
 
-Po dokončení návrhu byla zahájena fáze implementace systému. Vývoj probíhal postupně, průběžné konzultace s vedoucím práce a zpětná vazba hrály klíčovou roli při ladění funkcionality.
+Po dokončení návrhu byla zahájena fáze implementace systému. Vývoj probíhal postupně, přičemž průběžné konzultace s vedoucím práce a zpětná vazba hrály klíčovou roli při ladění funkcionality. Součástí procesu implementace byl také jednoduchý CI proces, který při každém zapsání změn do repozitáře automaticky spouštěl linter, instaloval závislosti a kontroloval, zda je projekt sestavitelný.
 
 Závěrečnou část metodiky tvořilo manuální testování, během kterého byly ověřeny všechny klíčové funkcionality aplikace, jako jsou rozšířená realita, načítání 3D modelů, komunikace se serverem a mapová navigace.
 \pagebreak
@@ -74,6 +74,40 @@ Server přijímá požadavky od klientů, zpracovává je a poskytuje data digit
 Data mezi klientem a serverem jsou přenášena prostřednictvím zabezpečeného protokolu vhodného pro přenos textových i binárních dat. Formát dat umožňuje snadnou serializaci a deserializaci, což usnadňuje jejich zpracování na obou stranách systému. 3D modely včetně textur jsou přenášeny ve formátu optimalizovaném pro mobilní zobrazovací prostředí.
 
 \section{Vybraný technologický zásobník}
+Pro vývoj aplikace jsem zvolil technologický zásobník, který kombinuje nástroj pro tvorbu AR aplikací, spolehlivý serverový backend a dokumentově orientovanou databázi. Jednotlivé technologie jsem vybral primárně kvůli dostupnosti kvalitní dokumentace a podpoře funkcionalit, které tato práce vyžaduje.
+
+\subsection{Klientská část}
+Základ klientské časti tvoří herní engine Unity, který je v současnosti jedním z nejpoužívanějších nástrojů pro vývoj AR a VR aplikací. Hlavní výhodou Unity je jeho multiplatformnost, podpora velkého množství XR zařízení a stabilní ekosystém knihoven.
+
+K implementaci logiky aplikace byl využit jazyk C\#, který Unity nativně podporuje. C\# nabízí jasnou syntaxi, doubrou práci s objekty a boháté množství knihoven.
+
+\subsection{Serverová část}
+Pro serverovou část aplikace byl zvolen programovací jazyk Python v kombinaci s frameworkem Flask. Flask představuje minimalistický a snadno rozšiřitelný framework, který umožňuje rychlou tvorbu REST API i jednoduchou správu jednotlivých endpointů. Díky nízké režii je vhodný pro projekty, které vyžadují lehkou, přehlednou a snadno udržovatelnou serverovou logiku.
+
+Pro zajištění přenositelnosti a konzistentního prostŕedí je server provozován pomocí kontejnerizační technologie Docker. Kontejnery umožňují izolovat běhové prostředí, usnadňují nasazení a umožňují jednotnou konfiguraci nezávislou na cílovém zařízení.
+
+Datová vrstva je řešena dokumentově orientovanou databází MongoDB. Tento typ databáze umožňuje ukládat nestrukturovaná či částečně strukturovaná data. Výhodou MongoDB je také jednoduchá integrace s Pythonem a možnost dynamicky přizpůsobovat datový model podle potřeb aplikace.
 
 
 \section{Implementace systému}
+Implementace probíhala podle předem navržené architektury a metodiky, přičemž jsem se snažil o co největší modularitu a přehlednost kódu. Samotná implementace probíhála v několika etapách, při kterých jsem zajišťoval jednotlivé funkcionality.
+\subsection{Integrace rozšířené reality}
+Pro zajištění správné interakce s 3D objkety v rozšířené realitě jsem použil XR Interaction Toolkit, což je knihovna poskytující třídy pro vytváření aplikací s imerzivními technologiemi, které zajišťují interakce se vstupy v reálném čase.
+
+Po vložení balíčku XR Interaction Toolkit jsem vytvořil XR rig, což je třída, která se automaticky stará o správu kamery a pohyb zařízení. XR rig také zajišťuje, že všechny vstupy, jako jsou pohyby kamery nebo interakce s objekty, jsou správně přeneseny do 3D prostoru aplikace. Tento prvek významně zjednodušil práci s kamerou a senzory, což je zásadní pro plynulé fungování aplikace.
+
+\subsection{Import modelu a správné pozicování}
+Další krok představovalo zajištění správného formátu pro načítání 3D modelů v reálném čase. Unity nativně podporuje několik formátů souborů pro 3D modely, ale pro tuto apliakci jsem potřeboval formát, který bude dostatečně flexibilní a zároveň umožní rychlé načítání a renderování modelů i texturami.
+Po prozkoumání několika možností jsem se rozhodl pro formát GLTF, protože vyhovuje všem požadavkům.
+
+Po úspěšném načtení modelu bylo nutné zajistit jeho správné umístění v reálném prostoru. Rozhodl jsem se pro manuální přepočítání pozice tak, aby se model objevil přímo v záběru kamery. Zde hraje roli pozice kamery, směr pohledu a vzdálenost modelu. Výsledný výpočet tedy určoval, kde se model ve 3D prostoru nachází vzhledem k uživatelskému pohledu. Model byl umístěn přímo v této pozici a orientován podle směru kamery tak, aby vypadal přirozeně, jako by byl součástí reálného prostředí.
+\subsection{Mapový systém}
+Po vyhodnocení dostupných balíčků pro integraci mapového podkladu do Unity jsem zjistil, že žádné z bezplatných řešení nesplňuje požadavky projektu. Z tohoto důvodu jsem se rozhodl vytvořit mapový systém vlastní implementací. Pro generování mapových dlaždic bylo využito rozhraní Google Maps Static API, které na základě zeměpisné šířky, žemepisné délky a úrovně přiblížení poskytuje statický obraz odpovídající mapové oblasti.
+
+Získaná dlaždice byla následně převedena na texturu a integrována do prostředí Unity. Následným krokem byla vizualizace jednotlivých projektů ve formě bodů umístěných na mapě. Tato část se ukázala jako náročnější, než bylo původně očekáváno, protože bylo nutné převést geografické souřadnice na pozice v lokálním souřadném systému Unity.
+
+Ačkoli existují standardní vzodce pro převod zeměpisné šířky a délky do 2D projekce, nelze je přímo aplikovat na výpočet pozice v prostředí Unity. Unity nepoužívá geografickou projekci, ale lokální kartézský souřadný systém. Bylo tedy nezbytné vytvořit vlastní transformační vztah, který umožňuje přepočítávat pozice bodů tak, aby se správně zobrazovaly na mapě.
+
+Pro odvození tohoto vztahu jsem vybral několik referenčních bodů se známými geografickými souřadnicemi, na jejichž základě byl stanoven transformační koeficient C. Ten následně umožnil vypočítat relativní posun objektů v rámci mapové dlaždice. Rovnice pro výpočet souřadnice \(X\) vychází z rozdílu mezi zeměpisnou šířkou objektu \( \text{Lat}_{\text{objekt}} \) a středem dlaždice \( \text{Lat}_{\text{dlaždice}} \), normalizovaného pomocí koeficientu \( C\) a dále škálovaného podle rozdílu mezi aktuální úrovní přiblížení \(Z \) a základní úrovně přiblížení \( Z_0\)
+
+Analogicky je určena i souřadnice Y. Obě vypočtené hodnoty určují koenčné umístění vizualizovaných projektů na mapě a zajišťují korektní zobrazení při všech úrovních přiblížení v prostředí Unity.
