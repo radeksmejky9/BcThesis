@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System;
 using System.Collections.Generic;
+using MongoDB.Driver;
 
 
 public class Map : MonoBehaviour
@@ -21,8 +22,6 @@ public class Map : MonoBehaviour
 
     [SerializeField]
     private int zoomLevel = 16;
-    [SerializeField]
-    private string apiKey;
     [SerializeField]
     private float lat;
     [SerializeField]
@@ -97,7 +96,8 @@ public class Map : MonoBehaviour
 
     IEnumerator GetGoogleMap()
     {
-        url = "https://maps.googleapis.com/maps/api/staticmap?center=" + Lat + "," + Lon + "&zoom=" + zoomLevel + "&size=" + mapWidth + "x" + mapHeight + "&scale=" + mapResolution + "&maptype=" + mapType + "&style=feature:poi|element:labels|visibility:off&key=" + apiKey;
+        url = DBConnector.Instance.apiUrl + "/maps/staticmap?lat=" + Lat + "&lon=" + Lon + "&zoom=" + zoomLevel + "&size=" + mapWidth + "x" + mapHeight;
+        Debug.Log("Requesting map: " + url);
         mapIsLoading = true;
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
         yield return www.SendWebRequest();

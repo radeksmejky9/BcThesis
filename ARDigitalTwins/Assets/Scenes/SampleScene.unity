@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3058514ced349d43a16afda69db0453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apiUrl: http://192.168.83.77:5000
+  apiUrl: http://192.168.0.203:5000
 --- !u!4 &19856280
 Transform:
   m_ObjectHideFlags: 0
@@ -615,7 +615,6 @@ MonoBehaviour:
   Controls: {fileID: 2025248208}
   MapUI: {fileID: 1545382706}
   zoomLevel: 16
-  apiKey: 
   lat: 50.6602
   lon: 14.04113
   mapResolution: 1

@@ -65,7 +65,7 @@ public class ObjectManager : MonoBehaviour
 
     IEnumerator DownloadModel(string url, GameObject gameObject)
     {
-        Debug.Log("Downloading model");
+        Debug.Log("Downloading model:" + url);
         var oldAssets = gameObject.GetComponents<GLTFast.GltfAsset>();
         foreach (var old in oldAssets)
         {

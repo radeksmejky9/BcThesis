@@ -110,4 +110,8 @@ Ačkoli existují standardní vzodce pro převod zeměpisné šířky a délky d
 
 Pro odvození tohoto vztahu jsem vybral několik referenčních bodů se známými geografickými souřadnicemi, na jejichž základě byl stanoven transformační koeficient C. Ten následně umožnil vypočítat relativní posun objektů v rámci mapové dlaždice. Rovnice pro výpočet souřadnice \(X\) vychází z rozdílu mezi zeměpisnou šířkou objektu \( \text{Lat}_{\text{objekt}} \) a středem dlaždice \( \text{Lat}_{\text{dlaždice}} \), normalizovaného pomocí koeficientu \( C\) a dále škálovaného podle rozdílu mezi aktuální úrovní přiblížení \(Z \) a základní úrovně přiblížení \( Z_0\)
 
+\[ X = \frac{\text{Lat}_{\text{objekt}} - \text{Lat}_{\text{dlaždice}}}{C} \times 2^{Z - Z_0} \]
+
 Analogicky je určena i souřadnice Y. Obě vypočtené hodnoty určují koenčné umístění vizualizovaných projektů na mapě a zajišťují korektní zobrazení při všech úrovních přiblížení v prostředí Unity.
+
+\subsection{Serverová část}
