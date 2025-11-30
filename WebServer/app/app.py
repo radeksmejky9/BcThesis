@@ -3,8 +3,8 @@ from flask_pymongo import PyMongo
 from config import Config
 from dotenv import load_dotenv
 from storage import FileStorageService
-from repositories import FileRepository
-from services import ValidationService, FileService
+from repositories import FileRepository, RatingRepository, MapCacheRepository
+from services import ValidationService, FileService, RatingService, MapCacheService
 from routes import create_routes
 
 
@@ -18,12 +18,24 @@ def create_app(config_class=Config):
 
     mongo = PyMongo(app)
 
+    # Storage
     storage_service = FileStorageService(config_class.UPLOAD_PATH)
-    repository = FileRepository(mongo)
-    validation_service = ValidationService()
-    file_service = FileService(repository, storage_service, validation_service)
 
-    routes_bp = create_routes(file_service, storage_service, config_class, mongo)
+    # Repositories
+    file_repository = FileRepository(mongo)
+    rating_repository = RatingRepository(mongo)
+    map_cache_repository = MapCacheRepository(mongo)
+
+    # Services
+    validation_service = ValidationService()
+    file_service = FileService(file_repository, storage_service, validation_service)
+    rating_service = RatingService(rating_repository, validation_service)
+    map_cache_service = MapCacheService(map_cache_repository, validation_service)
+
+    # Routes
+    routes_bp = create_routes(
+        file_service, rating_service, map_cache_service, storage_service, config_class
+    )
     app.register_blueprint(routes_bp)
 
     return app

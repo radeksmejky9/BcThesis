@@ -1,8 +1,10 @@
 from werkzeug.datastructures import FileStorage
 from typing import List, Tuple, Optional
-from models import FileMetadata
-from repositories import FileRepository
+from models import FileMetadata, Rating, MapCache
+from repositories import FileRepository, RatingRepository, MapCacheRepository
 from storage import FileStorageService
+import requests
+import os
 
 
 class ValidationService:
@@ -195,3 +197,99 @@ class FileService:
     def drop_all_files(self) -> None:
         """Smaže všechny záznamy z databáze"""
         self.repository.drop_collection()
+
+
+class RatingService:
+    def __init__(self, repository: RatingRepository, validation: ValidationService):
+        self.repository = repository
+        self.validation = validation
+
+    def get_ratings_for_file(self, file_id: str) -> List[Rating]:
+        """Vrátí všechna hodnocení pro daný soubor"""
+        ratings = self.repository.find_by_file_id(file_id)
+        return [Rating.from_dict(r) for r in ratings]
+
+    def get_average_rating(self, file_id: str) -> Optional[dict]:
+        """Vrátí průměrné hodnocení pro soubor"""
+        return self.repository.get_average_rating(file_id)
+
+    def add_rating(self, file_id: str, stars: int, comment: str) -> Tuple[bool, str]:
+        """
+        Přidá nové hodnocení
+        Vrací: (success: bool, message: str)
+        """
+        if not isinstance(stars, int) or stars < 1 or stars > 5:
+            return False, "Stars must be between 1 and 5"
+
+        if comment and len(comment) > 500:
+            return False, "Comment is too long (max 500 characters)"
+
+        rating = Rating(
+            file_id=file_id, stars=stars, comment=comment.strip() if comment else ""
+        )
+
+        try:
+            rating_id = self.repository.insert(rating.to_dict())
+            return True, f"Rating added successfully with ID: {rating_id}"
+        except Exception as e:
+            return False, f"Failed to add rating: {str(e)}"
+
+    def delete_ratings_for_file(self, file_id: str) -> bool:
+        """Smaže všechna hodnocení pro daný soubor"""
+        return self.repository.delete_by_file_id(file_id)
+
+
+class MapCacheService:
+    def __init__(self, repository: MapCacheRepository, validation: ValidationService):
+        self.repository = repository
+        self.validation = validation
+
+    def get_cached_map(
+        self,
+        lat: str,
+        lon: str,
+        zoom: str = "16",
+        size: str = "1000x1000",
+        maptype: str = "roadmap",
+    ) -> Tuple[bool, Optional[bytes], Optional[str]]:
+        """
+        Získá mapu z cache nebo ji stáhne z Google Maps API
+        Vrací: (success: bool, image_data: bytes | None, error_message: str | None)
+        """
+        if not self.validation.validate_coordinates(lat, lon):
+            return False, None, "Invalid coordinates"
+
+        cached = self.repository.find_by_params(lat, lon, zoom, size, maptype)
+        if cached:
+            return True, cached.image, None
+
+        google_url = "https://maps.googleapis.com/maps/api/staticmap"
+        params = {
+            "center": f"{lat},{lon}",
+            "zoom": zoom,
+            "size": size,
+            "scale": "1",
+            "maptype": maptype,
+            "style": "feature:poi|element:labels|visibility:off",
+            "key": os.getenv("GOOGLE_MAPS_API_KEY"),
+        }
+
+        try:
+            response = requests.get(google_url, params=params, timeout=10)
+            response.raise_for_status()
+            image_data = response.content
+
+            map_cache = MapCache(
+                lat=lat,
+                lon=lon,
+                zoom=zoom,
+                size=size,
+                maptype=maptype,
+                image=image_data,
+            )
+            self.repository.upsert(map_cache)
+
+            return True, image_data, None
+
+        except requests.exceptions.RequestException as e:
+            return False, None, f"Google Maps API error: {str(e)}"

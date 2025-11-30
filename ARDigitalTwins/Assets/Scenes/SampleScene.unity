@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 7169281}
   - component: {fileID: 7169280}
   - component: {fileID: 7169279}
-  - component: {fileID: 7169278}
   m_Layer: 5
   m_Name: SpawnButton
   m_TagString: Untagged
@@ -162,18 +161,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000030518, y: -575.2134}
   m_SizeDelta: {x: 1000, y: 153.5331}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7169278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7169276}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 215df3a0f4d330045b94e9c9778e48f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7169279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,6 +459,8 @@ MonoBehaviour:
   img: {fileID: 1125709206}
   modalUIObject: {fileID: 602464149}
   ratingNotification: {fileID: 2037679614}
+  ratingButton: {fileID: 1749013052}
+  comment_input: {fileID: 274216796}
 --- !u!1 &173838048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1370,7 +1359,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 80725923}
         m_TargetAssemblyTypeName: RatingModal, Assembly-CSharp
         m_MethodName: set_ProjectRating
         m_Mode: 3
@@ -2293,7 +2282,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 80725923}
         m_TargetAssemblyTypeName: RatingModal, Assembly-CSharp
         m_MethodName: set_ProjectRating
         m_Mode: 3
@@ -2576,7 +2565,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 80725923}
         m_TargetAssemblyTypeName: RatingModal, Assembly-CSharp
         m_MethodName: set_ProjectRating
         m_Mode: 3
@@ -3486,7 +3475,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 80725923}
         m_TargetAssemblyTypeName: RatingModal, Assembly-CSharp
         m_MethodName: set_ProjectRating
         m_Mode: 3
@@ -4292,7 +4281,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 80725923}
         m_TargetAssemblyTypeName: RatingModal, Assembly-CSharp
         m_MethodName: set_ProjectRating
         m_Mode: 3
@@ -5915,7 +5904,6 @@ GameObject:
   - component: {fileID: 1749013054}
   - component: {fileID: 1749013053}
   - component: {fileID: 1749013052}
-  - component: {fileID: 1749013051}
   m_Layer: 5
   m_Name: SpawnButton
   m_TagString: Untagged
@@ -5943,18 +5931,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000030518, y: -575.2134}
   m_SizeDelta: {x: 1000, y: 153.5331}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1749013051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1749013049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 215df3a0f4d330045b94e9c9778e48f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1749013052
 MonoBehaviour:
   m_ObjectHideFlags: 0

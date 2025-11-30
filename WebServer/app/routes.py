@@ -8,26 +8,33 @@ from flask import (
     send_file,
     url_for,
 )
-from services import FileService
+from services import FileService, RatingService, MapCacheService
 from storage import FileStorageService
 from config import Config
-import requests
-import hashlib
-import os
-from datetime import datetime, timedelta
 from io import BytesIO
 
 
 def create_routes(
-    file_service: FileService, storage: FileStorageService, config: Config, mongo
+    file_service: FileService,
+    rating_service: RatingService,
+    map_cache_service: MapCacheService,
+    storage: FileStorageService,
+    config: Config,
 ):
     bp = Blueprint("files", __name__)
 
     @bp.route("/")
     def index():
-        """Zobrazí hlavní stránku s formulárem a seznamem souborů"""
+        """Zobrazí hlavní stránku s formulářem a seznamem souborů"""
         files = file_service.get_all_files()
-        return render_template("index.html", data=files)
+        files_with_ratings = []
+        for file in files:
+            file_dict = file.to_dict()
+            avg_rating = rating_service.get_average_rating(file._id)
+            file_dict["rating"] = avg_rating
+            files_with_ratings.append(file_dict)
+
+        return render_template("index.html", data=files_with_ratings)
 
     @bp.route("/files", methods=["GET"])
     def get_file_metadata():
@@ -72,7 +79,14 @@ def create_routes(
     @bp.route("/files/<filename>/download")
     def uploaded_file(filename):
         """Stáhne soubor"""
-        return send_from_directory(config.UPLOAD_PATH, filename)
+        if filename.endswith(".glb"):
+            mimetype = "model/gltf-binary"
+        elif filename.endswith((".jpg", ".jpeg", ".png", ".gif")):
+            mimetype = "image/jpeg"
+        else:
+            mimetype = "application/octet-stream"
+
+        return send_from_directory(config.UPLOAD_PATH, filename, mimetype=mimetype)
 
     @bp.route("/files/<file_id>", methods=["GET"])
     def get_file_by_id(file_id):
@@ -80,6 +94,8 @@ def create_routes(
         file_data = file_service.get_file_by_id(file_id)
         if not file_data:
             return jsonify({"error": "File not found"}), 404
+        ratings = rating_service.get_ratings_for_file(file_id)
+        avg_rating = rating_service.get_average_rating(file_id)
 
         return jsonify(
             {
@@ -90,6 +106,8 @@ def create_routes(
                 "lon": file_data.lon,
                 "name": file_data.name,
                 "description": file_data.description,
+                "ratings": [r.to_dict() for r in ratings],
+                "average_rating": avg_rating,
             }
         )
 
@@ -125,12 +143,64 @@ def create_routes(
     @bp.route("/files/<file_id>", methods=["DELETE"])
     def delete_file_api(file_id):
         """Smaže soubor (pro AJAX volání z UI)"""
+        # Smaž také všechna hodnocení
+        rating_service.delete_ratings_for_file(file_id)
+
         success, message = file_service.delete_file(file_id)
 
         if not success:
             return jsonify({"error": message}), 404
 
         return jsonify({"message": message, "success": True}), 200
+
+    @bp.route("/files/<file_id>/ratings", methods=["GET"])
+    def get_ratings(file_id):
+        """Získá všechna hodnocení pro soubor"""
+        ratings = rating_service.get_ratings_for_file(file_id)
+        avg_rating = rating_service.get_average_rating(file_id)
+
+        return jsonify(
+            {
+                "ratings": [
+                    {
+                        "_id": r._id,
+                        "stars": r.stars,
+                        "comment": r.comment,
+                        "created_at": (
+                            r.created_at.isoformat() if r.created_at else None
+                        ),
+                    }
+                    for r in ratings
+                ],
+                "average_rating": avg_rating,
+            }
+        )
+
+    @bp.route("/files/<file_id>/ratings", methods=["POST"])
+    def add_rating(file_id):
+        """Přidá nové hodnocení k souboru"""
+        file_data = file_service.get_file_by_id(file_id)
+        if not file_data:
+            return jsonify({"error": "File not found"}), 404
+
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "No data provided"}), 400
+
+        stars = data.get("stars")
+        comment = data.get("comment", "")
+        print(comment)
+        try:
+            stars = int(stars)
+        except (ValueError, TypeError):
+            return jsonify({"error": "Stars must be a number"}), 400
+
+        success, message = rating_service.add_rating(file_id, stars, comment)
+
+        if not success:
+            return jsonify({"error": message}), 400
+
+        return jsonify({"message": message, "success": True}), 201
 
     @bp.route("/maps/staticmap")
     def get_cached_map():
@@ -155,55 +225,12 @@ def create_routes(
         if not lat or not lon:
             return jsonify({"error": "Missing lat or lon parameter"}), 400
 
-        cache_id = hashlib.md5(
-            f"{lat}_{lon}_{zoom}_{size}_{maptype}".encode()
-        ).hexdigest()
-
-        cached_map = mongo.db.maps_cache.find_one({"_id": cache_id})
-        if cached_map and cached_map["expires"] > datetime.now():
-            return send_file(BytesIO(cached_map["image"]), mimetype="image/png")
-
-        google_url = "https://maps.googleapis.com/maps/api/staticmap"
-        params = {
-            "center": f"{lat},{lon}",
-            "zoom": zoom,
-            "size": size,
-            "scale": "1",
-            "maptype": maptype,
-            "style": "feature:poi|element:labels|visibility:off",
-            "key": os.getenv("GOOGLE_MAPS_API_KEY"),
-        }
-
-        print(f"Fetching map from Google with params: {params}")
-        print(f"Cache ID: {cache_id}")
-
-        try:
-            response = requests.get(google_url, params=params, timeout=10)
-            print(f"Google API Response: {response.status_code}")
-            response.raise_for_status()
-            image_data = response.content
-            print(f"Image data received: {len(image_data)} bytes")
-
-        except requests.exceptions.RequestException as e:
-            print(f"ERROR fetching from Google Maps: {str(e)}")
-            return jsonify({"error": f"Google Maps API error: {str(e)}"}), 500
-
-        mongo.db.maps_cache.update_one(
-            {"_id": cache_id},
-            {
-                "$set": {
-                    "image": image_data,
-                    "expires": datetime.now() + timedelta(days=1),
-                    "lat": lat,
-                    "lon": lon,
-                    "zoom": zoom,
-                    "size": size,
-                    "maptype": maptype,
-                    "created": datetime.now(),
-                }
-            },
-            upsert=True,
+        success, image_data, error_message = map_cache_service.get_cached_map(
+            lat, lon, zoom, size, maptype
         )
+
+        if not success:
+            return jsonify({"error": error_message}), 500
 
         return send_file(BytesIO(image_data), mimetype="image/png")
 

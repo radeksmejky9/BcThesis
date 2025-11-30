@@ -151,6 +151,7 @@ public class Map : MonoBehaviour
                         DBConnector.Instance.apiUrl + "/files/" + model.GlbFilename + "/download"));
                 point.GetComponent<Button>().onClick.AddListener(
                     () => RatingModal.Instance.UpdateModal(
+                        model.ID,
                         model.Name,
                         model.Description,
                         DBConnector.Instance.apiUrl + "/files/" + model.ImgFilename + "/download"));

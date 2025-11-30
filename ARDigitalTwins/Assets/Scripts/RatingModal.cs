@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Text;
 using GLTFast.Schema;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -27,6 +28,12 @@ public class RatingModal : MonoBehaviour
     public GameObject modalUIObject;
     [SerializeField]
     public GameObject ratingNotification;
+    [SerializeField]
+    public Button ratingButton;
+    [SerializeField]
+    private TMPro.TMP_InputField comment_input;
+
+    private string object_id;
 
     private void Awake()
     {
@@ -37,6 +44,7 @@ public class RatingModal : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        ratingButton.onClick.AddListener(() => StartCoroutine(SubmitRating()));
     }
 
     public void ActivateModal()
@@ -53,11 +61,40 @@ public class RatingModal : MonoBehaviour
         }
     }
 
-    public void UpdateModal(string name, string description, string imgUrl)
+    public void UpdateModal(string ID, string name, string description, string imgUrl)
     {
         if (name == null || description == null || imgUrl == null) return;
         nameText.text = name;
+        object_id = ID;
         StartCoroutine(DownloadImage(imgUrl));
+    }
+    private IEnumerator SubmitRating()
+    {
+        string url = $"{DBConnector.Instance.apiUrl}/files/{object_id}/ratings";
+
+        string json = $"{{\"stars\":{projectRating},\"comment\":\"{comment_input.text}\"}}";
+
+        using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
+        {
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Rating submitted: " + request.downloadHandler.text);
+            }
+            else
+            {
+                Debug.LogError("Error: " + request.error);
+                Debug.LogError("Response: " + request.downloadHandler.text);
+                Debug.LogError("URL: " + url);
+                Debug.LogError("JSON: " + json);
+            }
+        }
     }
     private IEnumerator DownloadImage(string url)
     {
