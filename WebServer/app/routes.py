@@ -155,17 +155,14 @@ def create_routes(
         if not lat or not lon:
             return jsonify({"error": "Missing lat or lon parameter"}), 400
 
-        # Vytvoř unikátní ID z parametrů
         cache_id = hashlib.md5(
             f"{lat}_{lon}_{zoom}_{size}_{maptype}".encode()
         ).hexdigest()
 
-        # Zkus z MongoDB cache
         cached_map = mongo.db.maps_cache.find_one({"_id": cache_id})
         if cached_map and cached_map["expires"] > datetime.now():
             return send_file(BytesIO(cached_map["image"]), mimetype="image/png")
 
-        # Zavolej Google Static Maps API
         google_url = "https://maps.googleapis.com/maps/api/staticmap"
         params = {
             "center": f"{lat},{lon}",
@@ -191,7 +188,6 @@ def create_routes(
             print(f"ERROR fetching from Google Maps: {str(e)}")
             return jsonify({"error": f"Google Maps API error: {str(e)}"}), 500
 
-        # Ulož do cache (24 hodin)
         mongo.db.maps_cache.update_one(
             {"_id": cache_id},
             {
