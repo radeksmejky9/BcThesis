@@ -9,7 +9,6 @@ from flask import (
     url_for,
 )
 from services import FileService, RatingService, MapCacheService
-from storage import FileStorageService
 from config import Config
 from io import BytesIO
 
@@ -18,7 +17,6 @@ def create_routes(
     file_service: FileService,
     rating_service: RatingService,
     map_cache_service: MapCacheService,
-    storage: FileStorageService,
     config: Config,
 ):
     bp = Blueprint("files", __name__)

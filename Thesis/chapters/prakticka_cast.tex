@@ -1,63 +1,136 @@
 \chapter{Praktická část}
 
 \section{Metodika práce}
-Práce na vývoji prototypu aplikace byla rozdělena do několika etap, které na sebe navazovaly. Cílem bylo postupovat systematicky, od úvodní analýzy a rešerše až po návrh, implementaci a testování aplikace. Při plánování metodického postupu byl zvolen vodopádový model s prvky iterativního přístupu. Vodopádový model je pro akademické práce vhodný kvůli pevnému zadání, které je potřeba nadefinovat před začátkem práce a prvky iterativního modelu jsou zase vhodné při jednotlivých fázích vývoje.
+Práce na vývoji prototypu aplikace byla rozdělena do několika etap, které na sebe navazovaly. Cílem bylo postupovat systematicky, od úvodní analýzy a~rešerše až po návrh, implementaci a~testování aplikace. Při plánování metodického postupu byl zvolen vodopádový model s~prvky iterativního přístupu. Vodopádový model je pro akademické práce vhodný kvůli pevnému zadání, které je potřeba nadefinovat před začátkem práce a~prvky iterativního modelu jsou zase vhodné při jednotlivých fázích vývoje.
 
-V první fázi byla provedena analýza zadání a dostupných technologií. Tato etapa zahrnovala rešerši týkající se rozšířené reality, digitálních dvojčat a mobilních aplikací, s důrazem na využití v oblasti stavebnictví a územního plánování. Součástí této analýzy bylo také prostudování existujících řešení a výběr vhodného přístupu k návrhu vlastní aplikace.
+V~první fázi byla provedena analýza zadání a~dostupných technologií. Tato etapa zahrnovala rešerši týkající se rozšířené reality, digitálních dvojčat a~mobilních aplikací, s~důrazem na využití v~oblasti stavebnictví a~územního plánování. Součástí této analýzy bylo také prostudování existujících řešení a~výběr vhodného přístupu k návrhu vlastní aplikace.
 
-Na základě zjištěných poznatků následovala fáze specifikace požadavků, ve které byly stanoveny hlavní funkce, které má aplikace splňovat. Důraz byl kladen na využití rozšířené reality pro zobrazení 3D modelů stavebních projektů, přístup k těmto modelům prostřednictvím mapy nebo QR kódu a možnost zpětné vazby ze strany uživatele.
+Na základě zjištěných poznatků následovala fáze specifikace požadavků, ve které byly stanoveny hlavní funkce, které má aplikace splňovat. Důraz byl kladen na využití rozšířené reality pro zobrazení 3D modelů stavebních projektů, přístup k těmto modelům prostřednictvím mapy nebo QR kódu a~možnost zpětné vazby ze strany uživatele.
 
-Následovala fáze návrhu systému, kde byl na základě definovaných požadavků vytvořen návrh architektury celé aplikace. Tento návrh zahrnoval návrh klientské i serverové části.
+Následovala fáze návrhu systému, kde byl na základě definovaných požadavků vytvořen návrh architektury celé aplikace. Tento návrh zahrnoval návrh klientské i~serverové části.
 
-Po dokončení návrhu byla zahájena fáze implementace systému. Vývoj probíhal postupně, přičemž průběžné konzultace s vedoucím práce a zpětná vazba hrály klíčovou roli při ladění funkcionality. Součástí procesu implementace byl také jednoduchý CI proces, který při každém zapsání změn do repozitáře automaticky spouštěl linter, instaloval závislosti a kontroloval, zda je projekt sestavitelný.
+Po dokončení návrhu byla zahájena fáze implementace systému. Vývoj probíhal postupně, přičemž průběžné konzultace s~vedoucím práce a~zpětná vazba hrály klíčovou roli při ladění funkcionality. Součástí procesu implementace byl také jednoduchý CI proces, který při každém zapsání změn do repozitáře automaticky spouštěl linter, instaloval závislosti a~kontroloval, zda je projekt sestavitelný.
 
-Závěrečnou část metodiky tvořilo manuální testování, během kterého byly ověřeny všechny klíčové funkcionality aplikace, jako jsou rozšířená realita, načítání 3D modelů, komunikace se serverem a mapová navigace.
-\pagebreak
-
-a
+Závěrečnou část metodiky tvořilo manuální testování, během kterého byly ověřeny všechny klíčové funkcionality aplikace, jako jsou rozšířená realita, načítání 3D modelů, komunikace se serverem a~mapová navigace.
 
 \pagebreak
 \section{Návrh systému}
+\subsection{Specifikace požadavků}
+Před realizací samotného návrhu systému bylo nutné specifikovat požadavky, které aplikace musí splňovat. K tomuto účelu velmi dobře slouží diagram případů užití, který ilustruje interakce mezi uživatelem a~samotným systémem.
 
-\subsection{Architektura systému}
-Systém využívá architekturu klient-server a skládá se tedy ze dvou hlavních částí: klientské části a serverové části (API a databáze). Klientská část zajišťuje interakci s uživatelem, vizualizaci digitálních dvojčat v rozšířené realitě, práci s mapovým rozhraním a komunikaci se serverem. Serverová část přijímá požadavky klientů, poskytuje data digitálních dvojčat, přijímá a ukládá zpětnou vazbu uživatelů a spravuje modely.
+Na obrázku \ref{fig:uml3} je diagram případů užití systému. Administrátor má možnost provádět různé akce, jako jsou prohlížení, přidávání, úprava nebo mazání projektů. Samotné zobrazení projektů je ještě rozšířeno o~zobrazení komentářů a~hodnocení jednotlivých projektů.  V~mobilní aplikaci může uživatel otevřít mapu, to je rozšířeno o~možnost výběru projektu a~následně ještě o~možnost vizualizace a~ohodnocení.
 
-Modulární návrh umožňuje samostatný rozvoj jednotlivých částí systému a zajišťuje efektivní přenos dat mezi klientem a serverem. Hlavní tok dat začíná na klientské straně výběrem digitálního dvojčete, například prostřednictvím mapového rozhraní nebo QR kódu. Následně klient odešle požadavek na server, model a jeho metadata jsou staženy a následně zobrazeny v prostředí rozšířené reality. Po prohlédnutí modelu může uživatel odeslat zpětnou vazbu na server. Oddělení klientské a serverové logiky podporuje budoucí rozšiřitelnost a škálovatelnost systému.
-\subsection{Sekvenční diagram systému}
-Sekvenční diagram znázorňuje hlavní procesy, které probíhají při používání aplikace. Jedná se o samotné zapnutí aplikace, zobrazení mapy, výběr projketu, vizualizaci a hodnocení projektu. Na diagramu vystupují čtyři klíčové komponenty, kterými jsou uživatel, mobilní aplikace, serverová část spolu s databází a externí služba Google Maps API.
-
-Po spuštění aplikace odešle mobilní zařízení požadavek na sever a vyžádá si seznam dostupných projektů. Server tato data načte z databáze a vrátí je zpět klientovi, aby bylo možné pokračovat na mapovou obrazovku.
-
-V části věnované mapovému zobrazení dochází k opakovanému načítání mapových dlaždic podle toho, jak uživatel s mapou interaguje (pohyb, přibližování a oddalování). Mobilní aplikace nejprve ověří dostupnost dlaždice na serveru. Pokud požadovaná dlaždice není dostupná, nebo není aktuální, server ji nejprve stáhne z Google Maps API, uloží do databáze a následně odešle klientovi. V opačném případě je načtena přímo z databáze. Klient poté aktualizuje pozice projektových markerů na mapě.
-
-Při výběru konkrétního projektu odešle aplikace dotaz na server a získá detailní informace o projektu. Po jejich načtení z databáze se uživateli zobrazí náhledová obrazovka, která umožňuje přejít do režimu rozšířené reality.
-
-V okamžiku, kdy uživatel požádá o zobrazení digitálního dvojčete v AR, aplikace si od serveru vyžádá 3D model příslušného projektu. Server jej získá z databáze, odešle zpět klientovi a mobilní aplikace model následně vizualizuje v AR.
-
-Poslední část diagramu popisuje odeslání uživatelské zpětné vazby. Po vyplnění hodnocení odešle aplikace data na server, který uloží hodnocení do databáze.
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.56]{images/uml1.png}
-    \caption{Sekvenční diagram systému}
-    \label{fig:uml1}
+    \includegraphics[width=\textwidth]{images/uml3.png}
+    \caption{Diagram užití systému}
+    \label{fig:uml3}
 \end{figure}
+\subsection{Architektura systému}
+Systém využívá architekturu klient-server a~skládá se tedy ze dvou hlavních částí: klientské části (mobilní aplikace a~webová aplikace) a~serverové části (API a~databáze).
+
+Klientská část je realizována dvěma způsoby: mobilní aplikací v~rozšířené realitě pro koncové uživatele a~webovou aplikací pro správu digitálních dvojčat. Mobilní aplikace zajišťuje interakci s~uživatelem, vizualizaci digitálních dvojčat v~rozšířené realitě, práci s~mapovým rozhraním a~komunikaci se serverem. Webová aplikace umožňuje nahrávat, upravovat a~mazat digitální dvojčata, určovat jejich umístění na mapě a~zobrazovat uživatelská hodnocení.
+
+Serverová část přijímá požadavky od obou typů klientů, poskytuje data digitálních dvojčat, přijímá a~ukládá zpětnou vazbu uživatelů a~spravuje modely.
+
+Modulární návrh umožňuje samostatný rozvoj jednotlivých částí systému a~zajišťuje efektivní přenos dat mezi klientem a~serverem.
+\subsection{Architektura serverové části}
+Serverová část poskytuje dvě hlavní rozhraní pro komunikaci s~klienty: REST API pro mobilní aplikaci v~rozšířené realitě a~webové rozhraní pro správu digitálních dvojčat. Obě rozhraní sdílejí společnou aplikační logiku a~datovou vrstvu, což zajišťuje konzistenci dat a~snižuje duplicitu kódu.
+
+Serverová část je navržena jako vrstevnatá aplikace, která zajišťuje rozdělení zodpovědností a~usnadňuje údržbu. Aplikace je rozdělena do šesti hlavních balíčků, jejichž struktura je znázorněna na obrázku \ref{fig:uml4}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{images/uml4.png}
+    \caption{Package diagram systému}
+    \label{fig:uml4}
+\end{figure}
+
+Modul \textit{routes} zpracovává HTTP požadavky od obou typů klientů a~definuje jak API endpointy pro mobilní aplikaci, tak webové endpointy pro administrační rozhraní. S ním úzce spolupracuje modul \textit{templates}, který obsahuje šablony pro webové rozhraní určené pro správu digitálních dvojčat. Byznys logiku a~validační pravidla implementuje modul \textit{services}, který zajišťuje správnost zpracovávaných dat a~koordinuje operace mezi ostatními vrstvami.
+
+Přístup k datům a~komunikaci s~databází zajišťuje modul \textit{repositories}, který poskytuje abstrakci pro datovou vrstvu a~umožňuje nezávislou změnu databázové technologie. Doménové entity systému, jako jsou metadata digitálních dvojčat, metadata mapových dlaždic nebo uživatelská hodnocení, definuje modul \textit{models}. Fyzické uložení 3D modelů a~souvisejících souborů spravuje modul \textit{file storage}.
+
+Tato vrstevnatá architektura umožňuje nezávislý vývoj jednotlivých balíčků. Prezentační vrstva je oddělena od byznys logiky, což zajišťuje možnost snadné změny API nebo přidání nových rozhraní bez nutnosti modifikace hlavní aplikační logiky.
+
+\subsection{Návrh datových modelů}
+Pro zajištění konzistentní struktury dat byl navržen systém tří datových modelů, které reprezentují základní entity systému. Tyto modely definují, jakým způsobem jsou data ukládána v~databázi a~jaké atributy jednotlivé entity obsahují.
+
+\subsubsection{FileMetadata}
+Model \textit{fileMetadata} uchovává metadata projektů, konkrétně názvy GLB a~obrazových souborů, zeměpisné souřadnice ve formátu latitude a~longitude, název projektu a~jeho textový popis. Každý záznam je identifikován pomocí UUID o~které se stará server.
+\begin{itemize}
+    \item \texttt{\_id}: \texttt{str} -- Unikátní identifikátor
+    \item \texttt{glb\_filename}: \texttt{str} -- Název GLB souboru
+    \item \texttt{img\_filename}: \texttt{str} -- Název obrázkového souboru
+    \item \texttt{lat}: \texttt{str} -- Zeměpisná šířka
+    \item \texttt{lon}: \texttt{str} -- Zeměpisná délka
+    \item \texttt{name}: \texttt{str} -- Název položky
+    \item \texttt{description}: \texttt{str} -- Popis položky
+\end{itemize}
+\subsubsection{Ratings}
+Model \textit{ratings} ukládá uživatelská hodnocení. Každé hodnocení obsahuje referenci na ID projektu, počet hvězdiček (1-5), volitelný textový komentář a~časové razítko vytvoření. Tato struktura umožňuje efektivní dotazování všech hodnocení pro konkrétní projekt a~výpočet průměrného hodnocení pomocí agregačních funkcí databáze.
+
+\begin{itemize}
+    \item \texttt{\_id}: \texttt{str} -- Unikátní identifikátor
+    \item \texttt{file\_id}: \texttt{str} -- ID hodnoceného souboru
+    \item \texttt{stars}: \texttt{int} -- Počet hvězdiček
+    \item \texttt{comment}: \texttt{str} -- Komentář k hodnocení
+    \item \texttt{created\_at}: \texttt{Optional[datetime]} -- Datum vytvoření (výchozí: aktuální datum a~čas)
+\end{itemize}
+\subsubsection{MapsCache}
+Model \textit{mapsCache} slouží k optimalizaci načítání mapových podkladů. Ukládá stažené mapové dlaždice z~Google Maps API společně s~jejich parametry, kterými jsou zeměpisná šířka, zeměpisná délka a~úroveň přiblížení a~časové razítko expirace. Při dotazu na mapovou dlaždici server nejprve ověří, zda existuje platná dočasně uložená verze. Pokud ano, vrátí ji přímo z~databáze, čímž se eliminují opakované dotazy na externí API a~výrazně se zrychlí odezva aplikace.
+\begin{itemize}
+    \item \texttt{\_id}: \texttt{str} -- Cache ID (automaticky generované)
+    \item \texttt{lat}: \texttt{str} -- Zeměpisná šířka
+    \item \texttt{lon}: \texttt{str} -- Zeměpisná délka
+    \item \texttt{zoom}: \texttt{str} -- Úroveň přiblížení
+    \item \texttt{size}: \texttt{str} -- Velikost mapy
+    \item \texttt{maptype}: \texttt{str} -- Typ mapy
+    \item \texttt{image}: \texttt{bytes} -- Binární data obrázku
+    \item \texttt{expires}: \texttt{Optional[datetime]} -- Datum expirace (výchozí: aktuální datum a~čas + 10 dní)
+    \item \texttt{created}: \texttt{Optional[datetime]} -- Datum vytvoření (výchozí: aktuální datum a~čas)
+\end{itemize}
+
+\subsection{Návrh REST API}
+REST API bylo navrženo jako rozhraní pro komunikaci mezi klientskými aplikacemi a~serverem. API poskytuje následující endpointy:
+
+
+\begin{itemize}
+    \item \textbf{GET /files} -- vrací seznam všech dostupných projektů ve formátu JSON. Tento endpoint je využíván mobilní i webovou aplikací při inicializaci pro získání seznamu digitálních dvojčat.
+
+    \item \textbf{GET /files/<id>} -- poskytuje detailní informace o~konkrétním projektu včetně metadat (název, popis, souřadnice) a seznamu všech hodnocení včetně průměrného hodnocení. Tento endpoint je volán při zobrazení náhledové obrazovky projektu.
+
+    \item \textbf{GET /files/<filename>/download} -- poskytuje 3D modely a~náhledové obrázky ke stažení.
+
+    \item \textbf{GET /files/<id>/ratings} -- vrací všechna hodnocení pro daný projekt včetně průměrného hodnocení. Hodnocení jsou seřazena od nejnovějšího po nejstarší.
+
+    \item \textbf{GET /maps/staticmap} -- poskytuje mapové dlaždice na základě parametrů latitude, longitude, zoom. Dlaždice jsou dočasně ukládány v~databázi po dobu 10 dní, což minimalizuje počet dotazů na Google Maps API a~zrychluje načítání mapy.
+
+    \item \textbf{POST /files} -- přijímá nový projekt včetně GLB souboru, náhledového obrázku a~metadat (název, popis, souřadnice). Tento endpoint je využíván webovým rozhraním pro správu projektů.
+
+    \item \textbf{POST /files/<id>/ratings} -- přijímá hodnocení od uživatelů ve formátu JSON obsahujícím počet hvězdiček (1--5) a~volitelný textový komentář.
+
+    \item \textbf{PUT /files/<id>} -- aktualizuje existující projekt. Umožňuje změnu metadat a~volitelně i~nahrazení GLB souboru nebo náhledového obrázku.
+
+    \item \textbf{DELETE /files/<id>} -- umožňuje smazat projekt ze systému včetně všech souvisejících souborů a~hodnocení.
+
+\end{itemize}
 
 
 \subsection{Klientská část (mobilní aplikace)}
-Klientská část mobilní aplikace slouží jako hlavní prostředí, ve kterém uživatel pracuje s digitálními dvojčaty. Umožňuje vyhledávat dostupné projekty pomocí interaktivní mapy nebo je rychle načíst prostřednictvím QR kódu. Po výběru je 3D model načten ze serveru a zobrazen v rozšířené realitě, přičemž není nutné používat fyzické markery. Model lze volně prohlížet z různých úhlů, což uživateli poskytuje lepší prostorovou představu o jeho podobě i fungování. Veškerá data jsou získávána dynamicky ze serveru, aby byla zajištěna aktuálnost jednotlivých projektů, a po prohlédnutí může uživatel odeslat zpětnou vazbu prostřednictvím jednoduchého formuláře.
-
+Klientská část mobilní aplikace slouží jako hlavní prostředí, ve kterém uživatel pracuje s~digitálními dvojčaty. Umožňuje vyhledávat dostupné projekty pomocí interaktivní mapy. Po výběru je 3D model načten ze serveru a~zobrazen v~rozšířené realitě, přičemž není nutné používat fyzické markery. Model lze volně prohlížet z~různých úhlů, což uživateli poskytuje lepší prostorovou představu o~jeho podobě i~fungování. Veškerá data jsou získávána dynamicky ze serveru, aby byla zajištěna aktuálnost jednotlivých projektů, a~po prohlédnutí může uživatel odeslat zpětnou vazbu prostřednictvím jednoduchého formuláře.
+\pagebreak
 \subsection{Návrh uživatelského rozhraní}
-Uživatelské rozhraní je koncipováno jako přehledné a intuitivní. Obsahuje hlavní AR obrazovku s digitálním dvojčetem, mapové rozhraní pro výběr projektů, informační panel s detailem projektu a formulář pro zpětnou vazbu. Navigace v jednotlivých obrazovkách je řešena spodním navigačním panelem. Ostatní ovládací prvky jsou ukotveny k okrajům obrazovky tak, aby byla zajištěna alespoň minimální forma responzivity rozhraní.
+Uživatelské rozhraní je koncipováno jako přehledné a~intuitivní. Obsahuje hlavní AR obrazovku s~digitálním dvojčetem, mapové rozhraní pro výběr projektů, informační panel s~detailem projektu a~formulář pro zpětnou vazbu. Navigace v~jednotlivých obrazovkách je řešena spodním navigačním panelem. Ostatní ovládací prvky jsou ukotveny k okrajům obrazovky tak, aby byla zajištěna alespoň minimální forma responzivity rozhraní.
 
-Návrh uživatelského rozhraní zahrnuje čtyři klíčové obrazovky, které společně pokrývají celý proces práce s digitálním dvojčetem. První z nich je AR režim, který umožňuje zobrazit 3D model přímo v reálném prostředí. Uživatel si může model zobrazit přímo v reálném prostředí před sebou. Tento pohled je navržen s důrazem na minimální množství ovládacích prvků, aby nerušil vizuální dojem a umožnil maximální prostor pro samotnou vizualizaci.
+Návrh uživatelského rozhraní na obrázku \ref{fig:figma} zahrnuje čtyři klíčové obrazovky, které společně pokrývají celý proces práce s~digitálním dvojčetem. První z~nich je AR režim, který umožňuje zobrazit 3D model přímo v~reálném prostředí. Uživatel si může model zobrazit přímo v~reálném prostředí před sebou. Tento pohled je navržen s~důrazem na minimální množství ovládacích prvků, aby nerušil vizuální dojem a~umožnil maximální prostor pro samotnou vizualizaci.
 
-Druhá obrazovka přestavuje mapový systém, který slouží jako hlavní způsob výběru dostupných digitálních dvojčat. Uživatel zde může přibližovat či oddalovat mapu, vybírat projekty podle jejich polohy.
+Druhá obrazovka představuje mapový systém, který slouží jako hlavní způsob výběru dostupných digitálních dvojčat. Uživatel zde může přibližovat či oddalovat mapu, vybírat projekty podle jejich polohy.
 
-Třetí obrazovka poskytuje náhled projektu, tedy stránku s důležitými informacemi o vybraném digitálním dvojčeti. Zobrazuje název projektu, ilustrační obrázek a stručný popis, který uživateli pomáhá pochopit kontext před vstupem do rozšířené reality. Tato obrazovka slouží jako logický mezikrok mezi mapou a samotným AR režimem.
+Třetí obrazovka poskytuje náhled projektu, tedy stránku s~důležitými informacemi o~vybraném digitálním dvojčeti. Zobrazuje název projektu, ilustrační obrázek a~stručný popis, který uživateli pomáhá pochopit kontext před vstupem do rozšířené reality. Tato obrazovka slouží jako logický mezikrok mezi mapou a~samotným AR režimem.
 
-Poslední obrazovkou je hodnocení projektu, které umožňuje uživateli poskytnout zpětnou vazbu. Kombinuje textové pole pro komentář a hvězdičkové hodnocení. Tato část rozhraní podporuje jednoduché a rychlé vyplnění tak, aby zpětná vazba nebyla pro uživatele zbytečnou zátěží.
+Poslední obrazovkou je hodnocení projektu, které umožňuje uživateli poskytnout zpětnou vazbu. Kombinuje textové pole pro komentář a~hvězdičkové hodnocení. Tato část rozhraní podporuje jednoduché a~rychlé vyplnění tak, aby zpětná vazba nebyla pro uživatele zbytečnou zátěží.
 
-Napříč všemi obrazovkami byla věnována pozornost také volbě velikosti písma. Nadpisy a klíčové informace využívají větší, výraznější typografii, zatímco doprovodné texty a sekundární prvky pracují s menší velikostí písma. Teto přístup zajišťuje zřetelné hierarchické členení informací, dobrou čitelnost a jednotný vizuální styl napříč celou aplikací.
+Napříč všemi obrazovkami byla věnována pozornost také volbě velikosti písma. Nadpisy a~klíčové informace využívají větší, výraznější typografii, zatímco doprovodné texty a~sekundární prvky pracují s~menší velikostí písma. Tento přístup zajišťuje zřetelné hierarchické členení informací, dobrou čitelnost a~jednotný vizuální styl napříč celou aplikací.
 \pagebreak
 
 \begin{figure}[H]
@@ -67,51 +140,130 @@ Napříč všemi obrazovkami byla věnována pozornost také volbě velikosti p�
     \label{fig:figma}
 \end{figure}
 
-\subsection{Serverová část a správa dat}
-Server přijímá požadavky od klientů, zpracovává je a poskytuje data digitálních dvojčat včetně 3D modelů a doprovodných informací. Kromě poskytování dat server přijímá a ukládá zpětnou vazbu uživatelů a zajišťuje konzistenci informací v databázi. Oddělení logiky klienta a serveru podporuje rozšiřitelnost systému. Komunikace probíhá prostřednictvím definovaného API, které zajišťuje efektivní přenos dat.
 
-\subsection{Komunikační protokoly a datové formáty}
-Data mezi klientem a serverem jsou přenášena prostřednictvím zabezpečeného protokolu vhodného pro přenos textových i binárních dat. Formát dat umožňuje snadnou serializaci a deserializaci, což usnadňuje jejich zpracování na obou stranách systému. 3D modely včetně textur jsou přenášeny ve formátu optimalizovaném pro mobilní zobrazovací prostředí.
+\subsection{Sekvenční diagram systému}
+Sekvenční diagram na obrázku \ref{fig:uml1} znázorňuje hlavní procesy, které probíhají při používání aplikace. Jedná se o~samotné zapnutí aplikace, zobrazení mapy, výběr projektu, vizualizaci a~hodnocení projektu. Na diagramu vystupuje pět klíčových komponent, kterými jsou uživatel, mobilní aplikace, serverová část, databáze a~externí služba Google Maps API.
+
+Část diagramu \textit{Application startup} obsahuje odeslání požadavku z~mobilní aplikace na server a~žádost o~seznam dostupných projektů. Server této žádosti vyhoví, data načte z~databáze a~vrátí je zpět mobilní aplikaci, aby bylo možné pokračovat na obrazovku s~mapovým systémem.
+
+V~části diagramu \textit{Map View} dochází k opakovanému načítání mapových dlaždic podle toho, jak uživatel s~mapou interaguje (pohyb, přibližování a~oddalování). Mobilní aplikace nejprve ověří dostupnost dlaždice na serveru. Pokud požadovaná dlaždice není dostupná, nebo není aktuální, server ji nejprve stáhne z~Google Maps API, uloží do databáze a~následně odešle klientovi.  V~opačném případě je načtena přímo z~databáze. Klient poté aktualizuje pozice projektových bodů na mapě.
+
+Při akci \textit{Project selection} odešle mobilní aplikace dotaz na server a~získá detailní informace o~projektu. Po jejich načtení z~databáze se uživateli zobrazí náhledová obrazovka, která umožňuje přejít do režimu rozšířené reality.
+
+V~okamžiku, kdy uživatel požádá o~zobrazení digitálního dvojčete v~AR v~části diagramu \textit{Project visualization}, aplikace si od serveru vyžádá 3D model příslušného projektu. Server jej získá z~databáze, odešle zpět do mobilní aplikace a~ta následně model vizualizuje v~AR.
+
+Poslední část diagramu \textit{Project rating} popisuje odeslání uživatelské zpětné vazby. Po vyplnění hodnocení odešle aplikace data na server, který uloží hodnocení do databáze.
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.305]{images/uml1.png}
+    \caption{Sekvenční diagram systému}
+    \label{fig:uml1}
+\end{figure}
 
 \section{Vybraný technologický zásobník}
-Pro vývoj aplikace jsem zvolil technologický zásobník, který kombinuje nástroj pro tvorbu AR aplikací, spolehlivý serverový backend a dokumentově orientovanou databázi. Jednotlivé technologie jsem vybral primárně kvůli dostupnosti kvalitní dokumentace a podpoře funkcionalit, které tato práce vyžaduje.
+Pro vývoj aplikace jsem zvolil technologický zásobník, který kombinuje nástroj pro tvorbu AR aplikací, spolehlivý serverový backend a~dokumentově orientovanou databázi. Jednotlivé technologie jsem vybral primárně kvůli dostupnosti kvalitní dokumentace a~podpoře funkcionalit, které tato práce vyžaduje.
 
 \subsection{Klientská část}
-Základ klientské časti tvoří herní engine Unity, který je v současnosti jedním z nejpoužívanějších nástrojů pro vývoj AR a VR aplikací. Hlavní výhodou Unity je jeho multiplatformnost, podpora velkého množství XR zařízení a stabilní ekosystém knihoven.
+Základ klientské časti tvoří herní engine Unity, který je v~současnosti jedním z~nejpoužívanějších nástrojů pro vývoj AR a~VR aplikací. Hlavní výhodou Unity je jeho multiplatformnost, podpora velkého množství XR zařízení a~stabilní ekosystém knihoven. \cite{unity_manual}
 
-K implementaci logiky aplikace byl využit jazyk C\#, který Unity nativně podporuje. C\# nabízí jasnou syntaxi, doubrou práci s objekty a boháté množství knihoven.
+K implementaci logiky aplikace byl využit objektově orientovaný jazyk C\#, který Unity nativně podporuje. C\# nabízí jasnou syntaxi, dobrou práci s~objekty a~boháté množství knihoven. \cite{csharp}
 
 \subsection{Serverová část}
-Pro serverovou část aplikace byl zvolen programovací jazyk Python v kombinaci s frameworkem Flask. Flask představuje minimalistický a snadno rozšiřitelný framework, který umožňuje rychlou tvorbu REST API i jednoduchou správu jednotlivých endpointů. Díky nízké režii je vhodný pro projekty, které vyžadují lehkou, přehlednou a snadno udržovatelnou serverovou logiku.
+Pro serverovou část aplikace byl zvolen programovací jazyk Python v~kombinaci s~frameworkem Flask. Flask představuje minimalistický a~snadno rozšiřitelný framework, který umožňuje rychlou tvorbu REST API i~jednoduchou správu jednotlivých endpointů. Díky nízké režii je vhodný pro projekty, které vyžadují lehkou, přehlednou a~snadno udržovatelnou serverovou logiku. \cite{flask}
 
-Pro zajištění přenositelnosti a konzistentního prostŕedí je server provozován pomocí kontejnerizační technologie Docker. Kontejnery umožňují izolovat běhové prostředí, usnadňují nasazení a umožňují jednotnou konfiguraci nezávislou na cílovém zařízení.
+Pro zajištění přenositelnosti a~konzistentního prostředí je server provozován pomocí kontejnerizační technologie Docker. Kontejnery umožňují izolovat běhové prostředí, usnadňují nasazení a~umožňují jednotnou konfiguraci nezávislou na cílovém zařízení. \cite{docker}
 
-Datová vrstva je řešena dokumentově orientovanou databází MongoDB. Tento typ databáze umožňuje ukládat nestrukturovaná či částečně strukturovaná data. Výhodou MongoDB je také jednoduchá integrace s Pythonem a možnost dynamicky přizpůsobovat datový model podle potřeb aplikace.
+Datová vrstva je řešena dokumentově orientovanou databází MongoDB. Tento typ databáze umožňuje ukládat nestrukturovaná či částečně strukturovaná data. Výhodou MongoDB je také jednoduchá integrace s~Pythonem a~možnost dynamicky přizpůsobovat datový model podle potřeb aplikace. \cite{mongodb}
 
+\subsection{Datové formáty}
+Pro přenos metadat mezi klientem a~serverem byl zvolen formát JSON díky jeho jednoduché struktuře a~široké podpoře. 3D modely jsou ukládány a~přenášeny ve formátu GLB, který je standardizovaný formát pro web a~mobilní aplikace. GLB kombinuje geometrii, textury a~materiály do jediného binárního souboru, což zjednodušuje přenos a~zajišťuje rychlé načítání. \cite{gltf}
+
+Komunikace mezi klientem a~serverem probíhá přes HTTPS protokol pomocí REST API, které poskytuje jednotné rozhraní pro všechny operace se systémem.
 
 \section{Implementace systému}
-Implementace probíhala podle předem navržené architektury a metodiky, přičemž jsem se snažil o co největší modularitu a přehlednost kódu. Samotná implementace probíhála v několika etapách, při kterých jsem zajišťoval jednotlivé funkcionality.
-\subsection{Integrace rozšířené reality}
-Pro zajištění správné interakce s 3D objkety v rozšířené realitě jsem použil XR Interaction Toolkit, což je knihovna poskytující třídy pro vytváření aplikací s imerzivními technologiemi, které zajišťují interakce se vstupy v reálném čase.
+Implementace probíhala podle předem navržené architektury a~metodiky, přičemž jsem se snažil o~co největší modularitu a~přehlednost kódu. Samotná implementace probíhála v~několika etapách, při kterých jsem zajišťoval jednotlivé funkcionality.
 
-Po vložení balíčku XR Interaction Toolkit jsem vytvořil XR rig, což je třída, která se automaticky stará o správu kamery a pohyb zařízení. XR rig také zajišťuje, že všechny vstupy, jako jsou pohyby kamery nebo interakce s objekty, jsou správně přeneseny do 3D prostoru aplikace. Tento prvek významně zjednodušil práci s kamerou a senzory, což je zásadní pro plynulé fungování aplikace.
+\subsection{Mobilní Aplikace}
+\subsubsection{Integrace rozšířené reality}
+Pro zajištění správné interakce s~3D objekty v~rozšířené realitě jsem použil XR Interaction Toolkit, což je knihovna poskytující třídy pro vytváření aplikací s~imerzivními technologiemi, které zajišťují interakce se vstupy v~reálném čase.
 
-\subsection{Import modelu a správné pozicování}
-Další krok představovalo zajištění správného formátu pro načítání 3D modelů v reálném čase. Unity nativně podporuje několik formátů souborů pro 3D modely, ale pro tuto apliakci jsem potřeboval formát, který bude dostatečně flexibilní a zároveň umožní rychlé načítání a renderování modelů i texturami.
-Po prozkoumání několika možností jsem se rozhodl pro formát GLTF, protože vyhovuje všem požadavkům.
+Po vložení balíčku XR Interaction Toolkit jsem vytvořil XR rig, což je třída, která se automaticky stará o~správu kamery a~pohyb zařízení. XR rig také zajišťuje, že všechny vstupy, jako jsou pohyby kamery nebo interakce s~objekty, jsou správně přeneseny do 3D prostoru aplikace. Tento prvek významně zjednodušil práci s~kamerou a~senzory, což je zásadní pro plynulé fungování aplikace.
 
-Po úspěšném načtení modelu bylo nutné zajistit jeho správné umístění v reálném prostoru. Rozhodl jsem se pro manuální přepočítání pozice tak, aby se model objevil přímo v záběru kamery. Zde hraje roli pozice kamery, směr pohledu a vzdálenost modelu. Výsledný výpočet tedy určoval, kde se model ve 3D prostoru nachází vzhledem k uživatelskému pohledu. Model byl umístěn přímo v této pozici a orientován podle směru kamery tak, aby vypadal přirozeně, jako by byl součástí reálného prostředí.
-\subsection{Mapový systém}
-Po vyhodnocení dostupných balíčků pro integraci mapového podkladu do Unity jsem zjistil, že žádné z bezplatných řešení nesplňuje požadavky projektu. Z tohoto důvodu jsem se rozhodl vytvořit mapový systém vlastní implementací. Pro generování mapových dlaždic bylo využito rozhraní Google Maps Static API, které na základě zeměpisné šířky, žemepisné délky a úrovně přiblížení poskytuje statický obraz odpovídající mapové oblasti.
+\subsubsection{Import modelu a~správné pozicování}
+Další krok představovalo zajištění správné knihovny pro načítání 3D modelů v~reálném čase. Většina dostupných knihoven nepodporuje asynchronní stahování modelu, proto jsem určil GLTFast jako nejvhodnější knihovnu pro tuto práci.
 
-Získaná dlaždice byla následně převedena na texturu a integrována do prostředí Unity. Následným krokem byla vizualizace jednotlivých projektů ve formě bodů umístěných na mapě. Tato část se ukázala jako náročnější, než bylo původně očekáváno, protože bylo nutné převést geografické souřadnice na pozice v lokálním souřadném systému Unity.
+Po úspěšném načtení modelu bylo nutné zajistit jeho správné umístění v~reálném prostoru. Rozhodl jsem se pro manuální přepočítání pozice tak, aby se model objevil přímo v~záběru kamery. Zde hraje roli pozice kamery, směr pohledu a~vzdálenost modelu.
 
-Ačkoli existují standardní vzodce pro převod zeměpisné šířky a délky do 2D projekce, nelze je přímo aplikovat na výpočet pozice v prostředí Unity. Unity nepoužívá geografickou projekci, ale lokální kartézský souřadný systém. Bylo tedy nezbytné vytvořit vlastní transformační vztah, který umožňuje přepočítávat pozice bodů tak, aby se správně zobrazovaly na mapě.
+\subsubsection{Mapový systém}
+Po vyhodnocení dostupných balíčků pro integraci mapového podkladu do Unity jsem zjistil, že žádné z~bezplatných řešení nesplňuje požadavky projektu. Z tohoto důvodu jsem se rozhodl vytvořit mapový systém vlastní implementací. Pro generování mapových dlaždic bylo využito rozhraní Google Maps Static API, které na základě zeměpisné šířky, zeměpisné délky a~úrovně přiblížení poskytuje statický obraz odpovídající mapové oblasti.Získaná dlaždice byla následně převedena na texturu a~integrována do prostředí Unity.
 
-Pro odvození tohoto vztahu jsem vybral několik referenčních bodů se známými geografickými souřadnicemi, na jejichž základě byl stanoven transformační koeficient C. Ten následně umožnil vypočítat relativní posun objektů v rámci mapové dlaždice. Rovnice pro výpočet souřadnice \(X\) vychází z rozdílu mezi zeměpisnou šířkou objektu \( \text{Lat}_{\text{objekt}} \) a středem dlaždice \( \text{Lat}_{\text{dlaždice}} \), normalizovaného pomocí koeficientu \( C\) a dále škálovaného podle rozdílu mezi aktuální úrovní přiblížení \(Z \) a základní úrovně přiblížení \( Z_0\)
+Následným krokem byla vizualizace jednotlivých projektů ve formě bodů umístěných na mapě. Tato část se ukázala jako náročnější, než bylo původně očekáváno, protože bylo nutné převést geografické souřadnice na pozice v~lokálním souřadnicovém systému Unity.
+
+Ačkoli existují standardní vzorce pro převod zeměpisné šířky a~délky do 2D projekce, nelze je přímo aplikovat na výpočet pozice v~prostředí Unity. Unity nepoužívá geografickou projekci, ale lokální kartézský souřadnicový systém. Bylo tedy nezbytné vytvořit vlastní transformační vztah, který umožňuje přepočítávat pozice bodů tak, aby se správně zobrazovaly na mapě.
+
+Pro odvození tohoto vztahu jsem vybral několik referenčních bodů se známými geografickými souřadnicemi. Jako referenční body jsem použil rohy mapové dlaždice a~její střed, jejichž pozice v~Unity lze přesně určit. Průměrem poměrů jejich geografických souřadnic s~pozicemi v~Unity jsem odvodil transformační koeficient C, jeho přesnost jsem následně ověřil vložením bodů na velmi vzdálená místa od středu původní mapové dlaždice.
+
+Tento koeficient následně umožnil vypočítat relativní posun objektů v~rámci mapové dlaždice. Rovnice pro výpočet souřadnice \(X\) vychází z~rozdílu mezi zeměpisnou šířkou objektu \( \text{Lat}_{\text{objekt}} \) a~středem dlaždice \( \text{Lat}_{\text{dlaždice}} \), normalizovaného pomocí koeficientu \( C\) a~dále škálovaného podle rozdílu mezi aktuální úrovní přiblížení \(Z \) a~základní úrovně přiblížení \( Z_0\)
 
 \[ X = \frac{\text{Lat}_{\text{objekt}} - \text{Lat}_{\text{dlaždice}}}{C} \times 2^{Z - Z_0} \]
 
-Analogicky je určena i souřadnice Y. Obě vypočtené hodnoty určují koenčné umístění vizualizovaných projektů na mapě a zajišťují korektní zobrazení při všech úrovních přiblížení v prostředí Unity.
+Analogicky je určena i~souřadnice Y. Obě vypočtené hodnoty určují konečné umístění vizualizovaných projektů na mapě a~zajišťují korektní zobrazení při všech úrovních přiblížení v~prostředí Unity.
+
+\subsubsection{Asynchronní stahování 3D modelu}
+Po výběru projektu uživatelem odešle mobilní aplikace HTTP GET požadavek na endpoint \textit{/files/<filename>/download} pro stažení GLB souboru. Server vrátí binární data modelu s~MIME typem \textit{model/gltf-binary}.
+
+Unity přijme data a~předá je knihovně GLTFast, která zajišťuje parsing GLB formátu. GLTFast asynchronně zpracovává binární data, extrahuje geometrii, textury a~materiály a~vytváří z~nich Unity GameObject se všemi potřebnými komponentami (Mesh, MeshRenderer, Material).
+
+Po úspěšném načtení je model umístěn do scény podle vypočtené pozice vzhledem ke kameře. Model se objeví ve vzdálenosti přibližně metr před kamerou. Toto umístění zajišťuje, že model je okamžitě viditelný v~zorném poli bez nutnosti pohybu ze strany uživatele.
+
+Pro zajištění plynulého načítání je celý proces prováděn asynchronně pomocí C\# korutiny, takže aplikace zůstává responzivní i~během stahování a~parsování větších modelů.
 
 \subsection{Serverová část}
+\subsubsection{Implementace datových modelů}
+Datové modely byly implementovány jako Python dataclass třídy, které poskytují automatickou generaci inicializační metody a~dalších pomocných metod. Každý model obsahuje metody \texttt{to\_dict()} a~\texttt{from\_dict()}, které umožňují jednoduchou serializaci a~deserializaci dat pro uložení do MongoDB.
+
+Pro práci s~databází byla využita knihovna PyMongo, která poskytuje nativní rozhraní pro komunikaci s~MongoDB z~Pythonu. Všechny operace s~databází jsou v~repository třídě, což zajišťuje separaci datové logiky od byznys logiky aplikace.
+
+\subsubsection{Validace a~zpracování požadavků}
+Při příjmu dat od klientů probíhá validace na několika úrovních. Flask router nejprve ověřuje správnost HTTP metody a~přítomnost povinných parametrů. Následně Service vrstva kontroluje datové typy, rozsahy hodnot (např. počet hvězdiček 1-5) a~správnost souborů (přípona, velikost).
+
+Pro upload souborů je využita knihovna Werkzeug, která je součástí Flasku. Soubory jsou ukládány do souborového systému s~unikátním názvem UUID, což předchází konfliktům a~zajišťuje bezpečnost.
+
+\subsubsection{Cachování mapových dlaždic}
+Implementace cachování mapových dlaždic výrazně optimalizuje výkon systému. Při požadavku na mapovou dlaždici server nejprve ověří, zda existuje platný záznam v~kolekci \texttt{maps\_cache}. Identifikátor je generován pomocí MD5 hashe z~parametrů požadavku (latitude, longitude, zoom, size, maptype).
+
+Pokud cache obsahuje platný záznam (expirace > aktuální čas), server vrátí uloženou dlaždici přímo z~databáze.  V~opačném případě server stáhne novou dlaždici z~Google Maps Static API, uloží ji do databáze s~expirací 10 dní a~odešle klientovi. Tato strategie minimalizuje náklady na volání externího API a~zrychluje odezvu aplikace.
+
+\subsection{Implementace webové aplikace}
+Detailní návrh uživatelského rozhraní pro webovou aplikaci nebyl v~rámci této práce vypracován, neboť se jedná o~ nástroj pro správu digitálních dvojčat s~omezeným okruhem uživatelů, kde je kladen důraz primárně na funkčnost a~efektivní správu dat. Pro vývoj webového rozhraní byl využit iterativní přístup, kdy bylo rozhraní průběžně upravováno podle aktuálních potřeb samotné implementace.
+
+Webové rozhraní pro správu digitálních dvojčat bylo vytvořeno jako součást serverové aplikace s~využitím šablonovacího systému Flask. Uživatelské rozhraní je implementováno jako jednoduché webové rozhraní, které umožňuje uživatelům kompletní správu projektů.
+
+Hlavní stránka zobrazuje přehled všech nahraných projektů ve formě karet, které obsahují náhledový obrázek, název, popis, geografické souřadnice a~průměrné hodnocení. Pro stylování byla využita CSS knihovna Tailwind, která poskytuje utility třídy pro rychlou tvorbu responzivního rozhraní.
+
+Nahrávání nového projektu probíhá prostřednictvím modálního okna s~formulářem, kde uživatel vyplní název, popis, souřadnice a~nahraje GLB soubor spolu s~náhledovým obrázkem. Po odeslání formuláře jsou soubory validovány na serveru (kontrola přípony, velikosti) a~uloženy do souborového systému se zachováním unikátního názvu generovaného pomocí UUID. Metadata jsou následně uložena do MongoDB databáze.
+
+Úprava existujících projektů je řešena podobným modálním formulářem, který je předvyplněn aktuálními daty projektu. Uživatel může změnit jakákoliv metadata nebo nahradit aktuální soubory.
+
+Pro zobrazení hodnocení jednotlivých projektů slouží další modální okno, které dynamicky načítá hodnocení pomocí dotazu na endpoint \textit{/files/<id>/ratings}. Hodnocení jsou zobrazena včetně počtu hvězdiček, komentáře a~data vytvoření.
+
+Veškerá interakce s~uživatelem (otevírání modálních oken, potvrzení smazání, odeslání formulářů) je řešena pomocí JavaScriptu, který komunikuje se serverem asynchronně pomocí Fetch API, což zajišťuje plynulý uživatelský zážitek bez nutnosti obnovovat stránku.
+
+\subsection{Testování systému}
+Testování aplikace probíhalo formou nasazení na fyzické mobilní zařízení s~operačním systémem Android. Pro testování byl použit telefon Xiaomi Redmi 10T Pro s~verzí Androidu 12.
+
+Testování na reálném zařízení bylo zvoleno jako primární metoda, protože emulátory neumožňují plnohodnotné ověření funkcí rozšířené reality, které vyžadují fyzické senzory a~kameru zařízení. Webové rozhraní bylo také testováno vzdáleně z~mobilního telefonu, nikoliv z~hostujícího zařízení.
+
+Během testování byly manuálně ověřeny všechny klíčové funkcionality systému:
+
+\begin{itemize}
+    \item Správné zobrazení 3D modelů v~rozšířené realitě a~jejich pozicování v~prostoru
+    \item Funkčnost mapového rozhraní včetně posunu, přibližování a~výběru projektů
+    \item Komunikaci se serverem (stahování modelů, náhledových obrázků, metadat a~mapových dlaždic)
+    \item Asynchronní načítání a~renderování GLB souborů
+    \item Odesílání uživatelských hodnocení
+    \item Správa projektů prostřednictvím webového rozhraní (vytváření, úprava, mazání)
+    \item Zobrazení hodnocení a~komentářů prostřednictvím webového rozhraní
+\end{itemize}
+
+Všechny testované funkcionality pracovaly správně a~systém prokázal základní funkčnost potřebnou pro účely prototypu.
