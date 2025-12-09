@@ -36,7 +36,7 @@ def create_routes(
 
     @bp.route("/files", methods=["GET"])
     def get_file_metadata():
-        """API endpoint pro získání metadat všech souborů (pro externí aplikaci)"""
+        """API endpoint pro získání metadat všech souborů"""
         metadata = file_service.get_all_files_metadata()
         return jsonify(metadata)
 
