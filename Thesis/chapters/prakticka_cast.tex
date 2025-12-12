@@ -23,20 +23,21 @@ Na obrázku \ref{fig:uml3} je diagram případů užití systému. Administráto
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{images/uml3.png}
-    \caption{Diagram užití systému}
+    \caption{Diagram případů užití systému}
     \label{fig:uml3}
 \end{figure}
 
-Diagram aktivit na obrázku \ref{fig:uml5} je rozdělen do dvou plaveckých drah, které oddělují činnosti správce a~běžného uživatele. V první plavecké dráze je zachyten proces, kdy správce otevře webovou aplikaci, zvolí možnost „Nahrát nový soubor“ a~vyplní formulář s metadaty nového digitálního dvojčete. Po vyplnění provádí kontrolu správnosti údajů, v případě nesrovnalostí může data opakovaně upravovat.
+Diagram aktivit na obrázku 3.2 zachycuje průběh práce se systémem z pohledu dvou typů aktérů, kterými jsou správce a běžný uživatel.
 
-Druhá plavecká dráha obsahuje chování uživatele mobilní aplikace. Uživatel může opakovaně vybírat jednotlivé body na mapě, zobrazovat podrobnosti o~projektech, vizualizovat jejich 3D modely v rozšířené realitě a~odesílat svá hodnocení.
+Správce systému zahajuje svou činnost otevřením webové aplikace, kde vytváří nové digitální dvojče. Vyplňuje formulář s potřebnými metadaty projektu a následně kontroluje správnost zadaných údajů. Pokud zjistí nesrovnalosti, má možnost data opakovaně upravovat, dokud není s výsledkem spokojen.
 
-Na závěr se proces vrací zpět do plavecké dráhy správce, který může zobrazovat a~analyzovat získaná uživatelská hodnocení.
+Běžný uživatel interaguje se systémem prostřednictvím mobilní aplikace. Procházením mapového rozhraní vybírá jednotlivé projekty podle jejich geografické polohy. Pro vybrané projekty si může prohlížet podrobné informace a vizualizovat jejich 3D modely přímo v rozšířené realitě. Po prohlédnutí má možnost projekt ohodnotit prostřednictvím hvězdičkového hodnocení a textového komentáře. Tento proces může opakovat pro libovolný počet projektů.
 
+Správce má následně přístup k vyhodnocení uživatelských hodnocení, která může analyzovat a využít pro další rozhodování o projektech.
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.6]{images/uml5.png}
-    \caption{Diagram aktivit}
+    \caption{Diagram aktivit popisující kompletní uživatelský scénář}
     \label{fig:uml5}
 \end{figure}
 
@@ -96,7 +97,7 @@ Model \textit{ratings} ukládá uživatelská hodnocení. Každé hodnocení obs
     \item \texttt{created\_at}: \texttt{Optional[datetime]} -- Datum vytvoření (výchozí: aktuální datum a~čas)
 \end{itemize}
 \subsubsection{MapsCache}
-Model \textit{mapsCache} slouží k optimalizaci načítání mapových podkladů. Ukládá stažené mapové dlaždice z~Google Maps API společně s~jejich parametry, kterými jsou zeměpisná šířka, zeměpisná délka a~úroveň přiblížení a~časové razítko expirace. Při dotazu na mapovou dlaždici server nejprve ověří, zda existuje platná dočasně uložená verze. Pokud ano, vrátí ji přímo z~databáze, čímž se eliminují opakované dotazy na externí API a~výrazně se zrychlí odezva aplikace.
+Model \textit{mapsCache} slouží k optimalizaci načítání mapových podkladů. Ukládá stažené mapové dlaždice z~Google Maps API společně s~jejich parametry, kterými jsou zeměpisná šířka, zeměpisná délka, úroveň přiblížení a~časové razítko expirace. Při dotazu na mapovou dlaždici server nejprve ověří, zda existuje platná dočasně uložená verze. Pokud ano, vrátí ji přímo z~databáze, čímž se eliminují opakované dotazy na externí API a~výrazně se zrychlí odezva aplikace.
 \begin{itemize}
     \item \texttt{\_id}: \texttt{str} -- Cache ID (automaticky generované)
     \item \texttt{lat}: \texttt{str} -- Zeměpisná šířka
@@ -202,7 +203,7 @@ Poslední část diagramu \textit{Project rating} popisuje odeslání uživatels
 Pro vývoj aplikace jsem zvolil technologický zásobník, který kombinuje nástroj pro tvorbu AR aplikací, spolehlivý serverový backend a~dokumentově orientovanou databázi. Jednotlivé technologie jsem vybral primárně kvůli dostupnosti kvalitní dokumentace a~podpoře funkcionalit, které tato práce vyžaduje.
 
 \subsection{Klientská část}
-Základ klientské časti tvoří herní engine Unity, který je v~současnosti jedním z~nejpoužívanějších nástrojů pro vývoj AR a~VR aplikací. Hlavní výhodou Unity je jeho multiplatformnost, podpora velkého množství XR zařízení a~stabilní ekosystém knihoven. \cite{unity_manual}
+Základ klientské části tvoří herní engine Unity, který je v~současnosti jedním z~nejpoužívanějších nástrojů pro vývoj AR a~VR aplikací. Hlavní výhodou Unity je jeho multiplatformnost, podpora velkého množství XR zařízení a~stabilní ekosystém knihoven. \cite{unity_manual}
 
 K implementaci logiky aplikace byl využit objektově orientovaný jazyk C\#, který Unity nativně podporuje. C\# nabízí jasnou syntaxi, dobrou práci s~objekty a~boháté množství knihoven. \cite{csharp}
 

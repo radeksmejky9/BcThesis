@@ -19,6 +19,75 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global/global}
+    \entry{marin2023}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=680cd37e156025618eb50901fd865882}{%
+           family={Marin},
+           familyi={M\bibinitperiod},
+           given={G.\bibnamedelimi G.},
+           giveni={G\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{680cd37e156025618eb50901fd865882}
+      \strng{fullhash}{680cd37e156025618eb50901fd865882}
+      \strng{fullhashraw}{680cd37e156025618eb50901fd865882}
+      \strng{bibnamehash}{680cd37e156025618eb50901fd865882}
+      \strng{authorbibnamehash}{680cd37e156025618eb50901fd865882}
+      \strng{authornamehash}{680cd37e156025618eb50901fd865882}
+      \strng{authorfullhash}{680cd37e156025618eb50901fd865882}
+      \strng{authorfullhashraw}{680cd37e156025618eb50901fd865882}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2069-6469}
+      \field{journaltitle}{Urbanism. Arhitectura. Constructii}
+      \field{title}{Digital Twin: An Emerging Tool for Urban Planning and Design}
+      \field{urlday}{15}
+      \field{urlmonth}{3}
+      \field{urlyear}{2025}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://uac.incd.ro/Art/v15n1a1.pdf
+      \endverb
+      \verb{url}
+      \verb https://uac.incd.ro/Art/v15n1a1.pdf
+      \endverb
+    \endentry
+    \entry{wang2020digital}{incollection}{}{}
+      \name{author}{1}{}{%
+        {{hash=cc4aadc875d7abdbaf96dfa4a83d8b77}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Z.},
+           giveni={Z\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IntechOpen}%
+      }
+      \strng{namehash}{cc4aadc875d7abdbaf96dfa4a83d8b77}
+      \strng{fullhash}{cc4aadc875d7abdbaf96dfa4a83d8b77}
+      \strng{fullhashraw}{cc4aadc875d7abdbaf96dfa4a83d8b77}
+      \strng{bibnamehash}{cc4aadc875d7abdbaf96dfa4a83d8b77}
+      \strng{authorbibnamehash}{cc4aadc875d7abdbaf96dfa4a83d8b77}
+      \strng{authornamehash}{cc4aadc875d7abdbaf96dfa4a83d8b77}
+      \strng{authorfullhash}{cc4aadc875d7abdbaf96dfa4a83d8b77}
+      \strng{authorfullhashraw}{cc4aadc875d7abdbaf96dfa4a83d8b77}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Industry 4.0 - Impact on Intelligent Logistics and Manufacturing}
+      \field{title}{Digital Twin Technology}
+      \field{urlday}{15}
+      \field{urlmonth}{3}
+      \field{urlyear}{2025}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.5772/intechopen.80974
+      \endverb
+    \endentry
     \entry{AROverview}{article}{}{}
       \name{author}{4}{}{%
         {{hash=a52dfb2695cd050d7602476a90253575}{%
@@ -50,8 +119,8 @@
       \strng{authornamehash}{9b6fc1f51be6faa243ab79892ef7ab06}
       \strng{authorfullhash}{9b6fc1f51be6faa243ab79892ef7ab06}
       \strng{authorfullhashraw}{9b6fc1f51be6faa243ab79892ef7ab06}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{Computers}
@@ -61,11 +130,8 @@
       \field{urlyear}{2024}
       \field{year}{2022}
       \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://doi.org/https://doi.org/10.3390/computers11020028
-      \endverb
-      \verb{url}
-      \verb https://doi.org/https://doi.org/10.3390/computers11020028
+      \verb{doi}
+      \verb 10.3390/computers11020028
       \endverb
     \endentry
     \entry{BeyondAR}{online}{}{}
@@ -84,8 +150,8 @@
       \strng{authornamehash}{fe480131a8cc7e0d35c8e58fec8c7a5f}
       \strng{authorfullhash}{fe480131a8cc7e0d35c8e58fec8c7a5f}
       \strng{authorfullhashraw}{fe480131a8cc7e0d35c8e58fec8c7a5f}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Beyond AR vs. VR: What is the Difference between AR vs. MR vs. VR vs. XR?}
@@ -103,22 +169,22 @@
     \endentry
     \entry{ITJIm}{online}{}{}
       \name{author}{1}{}{%
-        {{hash=3512553a1b22e1f766dd0a3be68e2124}{%
-           family={SHARAPOV},
+        {{hash=182346573ef48d4c11119f74c720c59e}{%
+           family={Sharapov},
            familyi={S\bibinitperiod},
-           given={DMYTRO},
+           given={Dmytro},
            giveni={D\bibinitperiod}}}%
       }
-      \strng{namehash}{3512553a1b22e1f766dd0a3be68e2124}
-      \strng{fullhash}{3512553a1b22e1f766dd0a3be68e2124}
-      \strng{fullhashraw}{3512553a1b22e1f766dd0a3be68e2124}
-      \strng{bibnamehash}{3512553a1b22e1f766dd0a3be68e2124}
-      \strng{authorbibnamehash}{3512553a1b22e1f766dd0a3be68e2124}
-      \strng{authornamehash}{3512553a1b22e1f766dd0a3be68e2124}
-      \strng{authorfullhash}{3512553a1b22e1f766dd0a3be68e2124}
-      \strng{authorfullhashraw}{3512553a1b22e1f766dd0a3be68e2124}
-      \field{sortinit}{8}
-      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \strng{namehash}{182346573ef48d4c11119f74c720c59e}
+      \strng{fullhash}{182346573ef48d4c11119f74c720c59e}
+      \strng{fullhashraw}{182346573ef48d4c11119f74c720c59e}
+      \strng{bibnamehash}{182346573ef48d4c11119f74c720c59e}
+      \strng{authorbibnamehash}{182346573ef48d4c11119f74c720c59e}
+      \strng{authornamehash}{182346573ef48d4c11119f74c720c59e}
+      \strng{authorfullhash}{182346573ef48d4c11119f74c720c59e}
+      \strng{authorfullhashraw}{182346573ef48d4c11119f74c720c59e}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Marker-Based Augmented Reality - It-Jim}
@@ -137,7 +203,7 @@
     \entry{IkeaPlace}{online}{}{}
       \name{author}{1}{}{%
         {{hash=65d6b2613559085ad3f5303cc65df6ad}{%
-           family={{IKEA}},
+           family={IKEA},
            familyi={I\bibinitperiod}}}%
       }
       \strng{namehash}{65d6b2613559085ad3f5303cc65df6ad}
@@ -148,8 +214,8 @@
       \strng{authornamehash}{65d6b2613559085ad3f5303cc65df6ad}
       \strng{authorfullhash}{65d6b2613559085ad3f5303cc65df6ad}
       \strng{authorfullhashraw}{65d6b2613559085ad3f5303cc65df6ad}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Launch of new IKEA Place app – IKEA Global}
@@ -179,8 +245,8 @@
       \strng{authornamehash}{9671b43e9acfcea6f8281f209ca5d563}
       \strng{authorfullhash}{9671b43e9acfcea6f8281f209ca5d563}
       \strng{authorfullhashraw}{9671b43e9acfcea6f8281f209ca5d563}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Geo - expozice | iQLANDIA.CZ}
@@ -210,8 +276,8 @@
       \strng{authornamehash}{8b36e9207c24c76e6719268e49201d94}
       \strng{authorfullhash}{8b36e9207c24c76e6719268e49201d94}
       \strng{authorfullhashraw}{8b36e9207c24c76e6719268e49201d94}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Google Lens – vyhledávejte, co vidíte}
@@ -224,6 +290,310 @@
       \endverb
       \verb{url}
       \verb https://lens.google/intl/cs/
+      \endverb
+    \endentry
+    \entry{augment}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=cf3283a316b0c3c78a9d19bca700211c}{%
+           family={Augment},
+           familyi={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{cf3283a316b0c3c78a9d19bca700211c}
+      \strng{fullhash}{cf3283a316b0c3c78a9d19bca700211c}
+      \strng{fullhashraw}{cf3283a316b0c3c78a9d19bca700211c}
+      \strng{bibnamehash}{cf3283a316b0c3c78a9d19bca700211c}
+      \strng{authorbibnamehash}{cf3283a316b0c3c78a9d19bca700211c}
+      \strng{authornamehash}{cf3283a316b0c3c78a9d19bca700211c}
+      \strng{authorfullhash}{cf3283a316b0c3c78a9d19bca700211c}
+      \strng{authorfullhashraw}{cf3283a316b0c3c78a9d19bca700211c}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{AR Viewer | Augment}
+      \field{urlday}{18}
+      \field{urlmonth}{3}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.augment.com/blocks/ar-viewer/
+      \endverb
+      \verb{url}
+      \verb https://www.augment.com/blocks/ar-viewer/
+      \endverb
+    \endentry
+    \entry{trimble}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=93607179ecdd320bc8db19456f0c6101}{%
+           family={{BuildingPoint Northeast}},
+           familyi={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{93607179ecdd320bc8db19456f0c6101}
+      \strng{fullhash}{93607179ecdd320bc8db19456f0c6101}
+      \strng{fullhashraw}{93607179ecdd320bc8db19456f0c6101}
+      \strng{bibnamehash}{93607179ecdd320bc8db19456f0c6101}
+      \strng{authorbibnamehash}{93607179ecdd320bc8db19456f0c6101}
+      \strng{authornamehash}{93607179ecdd320bc8db19456f0c6101}
+      \strng{authorfullhash}{93607179ecdd320bc8db19456f0c6101}
+      \strng{authorfullhashraw}{93607179ecdd320bc8db19456f0c6101}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Trimble Connect AR - BuildingPoint Northeast — Your Trimble Distribution Partner from Maryland to Maine}
+      \field{urlday}{17}
+      \field{urlmonth}{3}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.buildingpointne.com/field-technology/mixed-reality/trimble-connect-ar/
+      \endverb
+      \verb{url}
+      \verb https://www.buildingpointne.com/field-technology/mixed-reality/trimble-connect-ar/
+      \endverb
+    \endentry
+    \entry{dalux}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=0dd620797f162f3bbfc2220c8301748a}{%
+           family={Dalux},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{fullhash}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{fullhashraw}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{bibnamehash}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{authorbibnamehash}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{authornamehash}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{authorfullhash}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{authorfullhashraw}{0dd620797f162f3bbfc2220c8301748a}
+      \field{extraname}{1}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Nejrychlejší bezplatný prohlížeč BIM na světě}
+      \field{urlday}{17}
+      \field{urlmonth}{3}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.dalux.com/cs/produkty/bim-viewer/
+      \endverb
+      \verb{url}
+      \verb https://www.dalux.com/cs/produkty/bim-viewer/
+      \endverb
+    \endentry
+    \entry{daluxtwin}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=0dd620797f162f3bbfc2220c8301748a}{%
+           family={Dalux},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{fullhash}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{fullhashraw}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{bibnamehash}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{authorbibnamehash}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{authornamehash}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{authorfullhash}{0dd620797f162f3bbfc2220c8301748a}
+      \strng{authorfullhashraw}{0dd620797f162f3bbfc2220c8301748a}
+      \field{extraname}{2}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{TwinBIM - Augmented Reality (AR) – Dalux HelpCenter}
+      \field{urlday}{18}
+      \field{urlmonth}{3}
+      \field{urlyear}{2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://support.dalux.com/hc/cs/articles/360015612953-TwinBIM-Roz%C5%A1%C3%AD%C5%99en%C3%A1-realita-AR
+      \endverb
+      \verb{url}
+      \verb https://support.dalux.com/hc/cs/articles/360015612953-TwinBIM-Roz%C5%A1%C3%AD%C5%99en%C3%A1-realita-AR
+      \endverb
+    \endentry
+    \entry{unity_manual}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=3f56ad8f8e05fcad24de3fcf878fb50b}{%
+           family={{Unity Technologies}},
+           familyi={U\bibinitperiod}}}%
+      }
+      \strng{namehash}{3f56ad8f8e05fcad24de3fcf878fb50b}
+      \strng{fullhash}{3f56ad8f8e05fcad24de3fcf878fb50b}
+      \strng{fullhashraw}{3f56ad8f8e05fcad24de3fcf878fb50b}
+      \strng{bibnamehash}{3f56ad8f8e05fcad24de3fcf878fb50b}
+      \strng{authorbibnamehash}{3f56ad8f8e05fcad24de3fcf878fb50b}
+      \strng{authornamehash}{3f56ad8f8e05fcad24de3fcf878fb50b}
+      \strng{authorfullhash}{3f56ad8f8e05fcad24de3fcf878fb50b}
+      \strng{authorfullhashraw}{3f56ad8f8e05fcad24de3fcf878fb50b}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Unity Documentation}
+      \field{year}{c2025}
+      \verb{urlraw}
+      \verb https://docs.unity.com/en-us
+      \endverb
+      \verb{url}
+      \verb https://docs.unity.com/en-us
+      \endverb
+    \endentry
+    \entry{csharp}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=140864078aeca1c7c35b4beb33c53c34}{%
+           family={Microsoft},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{fullhash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{fullhashraw}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{bibnamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorbibnamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authornamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorfullhash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorfullhashraw}{140864078aeca1c7c35b4beb33c53c34}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{C\# docs - get started, tutorials, reference.}
+      \field{urlday}{19}
+      \field{urlmonth}{7}
+      \field{urlyear}{2025}
+      \field{year}{c2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/
+      \endverb
+      \verb{url}
+      \verb https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/
+      \endverb
+    \endentry
+    \entry{flask}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=3f9cff795224f5232cca142b122d6d46}{%
+           family={{Pallets}},
+           familyi={P\bibinitperiod}}}%
+      }
+      \strng{namehash}{3f9cff795224f5232cca142b122d6d46}
+      \strng{fullhash}{3f9cff795224f5232cca142b122d6d46}
+      \strng{fullhashraw}{3f9cff795224f5232cca142b122d6d46}
+      \strng{bibnamehash}{3f9cff795224f5232cca142b122d6d46}
+      \strng{authorbibnamehash}{3f9cff795224f5232cca142b122d6d46}
+      \strng{authornamehash}{3f9cff795224f5232cca142b122d6d46}
+      \strng{authorfullhash}{3f9cff795224f5232cca142b122d6d46}
+      \strng{authorfullhashraw}{3f9cff795224f5232cca142b122d6d46}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Welcome to Flask — Flask Documentation (3.1.x)}
+      \field{urlday}{22}
+      \field{urlmonth}{7}
+      \field{urlyear}{2025}
+      \field{year}{c2010}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://flask.palletsprojects.com/en/stable/
+      \endverb
+      \verb{url}
+      \verb https://flask.palletsprojects.com/en/stable/
+      \endverb
+    \endentry
+    \entry{docker}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=4bd3b392874c74fba4ed57a24eae0ac1}{%
+           family={{Docker Inc.}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \strng{namehash}{4bd3b392874c74fba4ed57a24eae0ac1}
+      \strng{fullhash}{4bd3b392874c74fba4ed57a24eae0ac1}
+      \strng{fullhashraw}{4bd3b392874c74fba4ed57a24eae0ac1}
+      \strng{bibnamehash}{4bd3b392874c74fba4ed57a24eae0ac1}
+      \strng{authorbibnamehash}{4bd3b392874c74fba4ed57a24eae0ac1}
+      \strng{authornamehash}{4bd3b392874c74fba4ed57a24eae0ac1}
+      \strng{authorfullhash}{4bd3b392874c74fba4ed57a24eae0ac1}
+      \strng{authorfullhashraw}{4bd3b392874c74fba4ed57a24eae0ac1}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Docker Documentation}
+      \field{urlday}{25}
+      \field{urlmonth}{7}
+      \field{urlyear}{2025}
+      \field{year}{c2013-2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://docs.docker.com/
+      \endverb
+      \verb{url}
+      \verb https://docs.docker.com/
+      \endverb
+    \endentry
+    \entry{mongodb}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=1ac6d614186c0e0c6ded2e295019b862}{%
+           family={{MongoDB Inc.}},
+           familyi={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{1ac6d614186c0e0c6ded2e295019b862}
+      \strng{fullhash}{1ac6d614186c0e0c6ded2e295019b862}
+      \strng{fullhashraw}{1ac6d614186c0e0c6ded2e295019b862}
+      \strng{bibnamehash}{1ac6d614186c0e0c6ded2e295019b862}
+      \strng{authorbibnamehash}{1ac6d614186c0e0c6ded2e295019b862}
+      \strng{authornamehash}{1ac6d614186c0e0c6ded2e295019b862}
+      \strng{authorfullhash}{1ac6d614186c0e0c6ded2e295019b862}
+      \strng{authorfullhashraw}{1ac6d614186c0e0c6ded2e295019b862}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{MongoDB Documentation - Homepage}
+      \field{urlday}{29}
+      \field{urlmonth}{7}
+      \field{urlyear}{2025}
+      \field{year}{c2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.mongodb.com/docs/
+      \endverb
+      \verb{url}
+      \verb https://www.mongodb.com/docs/
+      \endverb
+    \endentry
+    \entry{gltf}{online}{}{}
+      \name{author}{1}{}{%
+        {{hash=364378d45b69f33fd50d5d62ae518626}{%
+           family={{Khronos Group}},
+           familyi={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{364378d45b69f33fd50d5d62ae518626}
+      \strng{fullhash}{364378d45b69f33fd50d5d62ae518626}
+      \strng{fullhashraw}{364378d45b69f33fd50d5d62ae518626}
+      \strng{bibnamehash}{364378d45b69f33fd50d5d62ae518626}
+      \strng{authorbibnamehash}{364378d45b69f33fd50d5d62ae518626}
+      \strng{authornamehash}{364378d45b69f33fd50d5d62ae518626}
+      \strng{authorfullhash}{364378d45b69f33fd50d5d62ae518626}
+      \strng{authorfullhashraw}{364378d45b69f33fd50d5d62ae518626}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{glTF - Runtime 3D Asset Delivery}
+      \field{urlday}{20}
+      \field{urlmonth}{7}
+      \field{urlyear}{2025}
+      \field{year}{c2025}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.khronos.org/gltf/
+      \endverb
+      \verb{url}
+      \verb https://www.khronos.org/gltf/
       \endverb
     \endentry
   \enddatalist
